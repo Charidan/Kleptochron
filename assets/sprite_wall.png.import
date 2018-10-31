@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wall.png-6b1d64fa3ea5498e75707962a9c3b56c.stex"
+path="res://.import/sprite_wall.png-769c88f77393deb4d92c4660c145bc82.stex"
 
 [deps]
 
-source_file="res://assets/wall.png"
-dest_files=[ "res://.import/wall.png-6b1d64fa3ea5498e75707962a9c3b56c.stex" ]
+source_file="res://assets/sprite_wall.png"
+dest_files=[ "res://.import/sprite_wall.png-769c88f77393deb4d92c4660c145bc82.stex" ]
 
 [params]
 

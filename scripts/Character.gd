@@ -1,16 +1,17 @@
 extends Area2D
 signal hit
 
-export (int) var speed = 1
-var screensize
+#export (int)
+var speed = 1
 
-func _ready():
-	screensize = get_viewport_rect().size
+var rotation_dir = 0
+
+#func _ready():
 
 func _physics_process(delta):
+	var velocity = Vector2()
 	#Change the below to not use ui input at some point
 	#TODO: Change this later
-	var velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("ui_left"):
@@ -21,6 +22,7 @@ func _physics_process(delta):
 		velocity.y -= 1
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+		look_at(position - velocity)
 	position += velocity
 
 func _on_Character_body_entered(body):

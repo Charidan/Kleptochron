@@ -18,6 +18,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
+speed = 400
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
@@ -30,5 +31,7 @@ shape = SubResource( 1 )
 position = Vector2( 487.168, 265.362 )
 scale = Vector2( 0.997134, 1 )
 texture = ExtResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_Character_body_entered"]
 
 

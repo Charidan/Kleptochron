@@ -8,29 +8,23 @@
 custom_solver_bias = 0.0
 radius = 58.7549
 
-[node name="Character" type="Area2D" index="0"]
+[node name="Character" type="KinematicBody2D"]
 
-position = Vector2( 0.788895, -2.52447 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
-position = Vector2( -0.594818, 2.69116 )
-scale = Vector2( 0.997134, 1 )
 shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="sprite_character" type="Sprite" parent="." index="1"]
 
-position = Vector2( -0.243807, 2.62616 )
-scale = Vector2( 0.997134, 1 )
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
 
 

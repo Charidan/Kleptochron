@@ -2,7 +2,7 @@ extends KinematicBody2D
 signal hit
 
 #export (int)
-var speed = 10
+var speed = 5
 
 var rotation_dir = 0
 

@@ -2,7 +2,7 @@ extends KinematicBody2D
 signal hit
 
 #export (int)
-var speed = 1
+var speed = 10
 
 var rotation_dir = 0
 
@@ -22,6 +22,7 @@ func _physics_process(delta):
 		velocity.y -= 1
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+		velocity = move_and_slide(velocity)
 		look_at(position - velocity)
 	position += velocity
 

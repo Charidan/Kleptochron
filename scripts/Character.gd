@@ -22,8 +22,8 @@ func _physics_process(delta):
 		velocity.y -= 1
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-		velocity = move_and_slide(velocity)
 		look_at(position - velocity)
+		velocity = move_and_slide(velocity)
 	position += velocity
 
 func _on_Character_body_entered(body):

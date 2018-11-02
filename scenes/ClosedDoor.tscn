@@ -5,9 +5,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 52.4764, 54.1171 )
+extents = Vector2( 51.1317, 51.1948 )
 
-[node name="ClosedDoor" type="KinematicBody2D"]
+[node name="ClosedDoor" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

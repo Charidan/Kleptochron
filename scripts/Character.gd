@@ -1,5 +1,5 @@
 extends KinematicBody2D
-signal hit
+#signal hit
 
 #export (int)
 var speed = 5
@@ -26,7 +26,6 @@ func _physics_process(delta):
 		velocity = move_and_slide(velocity)
 	position += velocity
 
-func _on_Character_body_entered(body):
-	#TODO: Stop movement on hit
-	emit_signal("hit")
-	
+#func _on_Character_body_entered(body):
+#	#TODO: Stop movement on hit
+#	emit_signal("hit")

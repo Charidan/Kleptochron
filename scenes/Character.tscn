@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 radius = 58.7549
 
-[node name="Character" type="KinematicBody2D"]
+[node name="Character" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -19,6 +19,8 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
+position = Vector2( 0.0841408, 0.133848 )
+scale = Vector2( 0.885239, 0.880173 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 

@@ -22,3 +22,6 @@ func toggle():
 	else:
 		sprite_on.show()
 		sprite_off.hide()
+
+func is_on():
+	return find_node("sprite_on").is_visible()

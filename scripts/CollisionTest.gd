@@ -14,4 +14,6 @@ func _ready():
 func _on_pressureplate_body_entered(body):
 	print("entered")
 	if body.get_name() == "Character":
-		find_node("pressureplate").toggle()
+		var pressureplate = find_node("pressureplate")
+		pressureplate.toggle()
+		find_node("Door").toggle()

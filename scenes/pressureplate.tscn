@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/pressureplate.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Pressureplate.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprite_plate_on.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprite_plate_off.png" type="Texture" id=3]
 
@@ -9,7 +9,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="pressureplate" type="Area2D"]
+[node name="Pressureplate" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )

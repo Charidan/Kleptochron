@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://door.gd" type="Script" id=1]
+[ext_resource path="res://scripts/door.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprite_door.png" type="Texture" id=2]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -13,7 +14,7 @@ extents = Vector2( 5.05331, 7.56986 )
 custom_solver_bias = 0.0
 extents = Vector2( 5.12251, 7.56986 )
 
-[node name="Door" type="StaticBody2D"]
+[node name="Door" type="StaticBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1

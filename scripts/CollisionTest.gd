@@ -12,7 +12,6 @@ func _ready():
 	#connect('body_enter', find_node("pressureplate"), "_on_pressureplate_body_enter")
 
 func _on_pressureplate_body_entered(body):
-	print("entered")
 	if body.get_name() == "Character":
 		var pressureplate = find_node("pressureplate")
 		pressureplate.toggle()

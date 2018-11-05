@@ -12,9 +12,8 @@ func _ready():
 	var door = find_node("Door")
 	pressureplate.connect('plate_on', door, "open")
 	pressureplate.connect('plate_off', door, "close")
-	pressureplate.connect("body_entered", self, "_on_pressureplate_body_entered")
+	pressureplate.connect("body_entered", self, "_on_pressureplate_body_entered", [pressureplate])
 
-func _on_pressureplate_body_entered(body):
+func _on_pressureplate_body_entered(body, origin):
 	if body.get_name() == "Character":
-		var pressureplate = find_node("pressureplate")
-		pressureplate.toggle()
+		origin.toggle()

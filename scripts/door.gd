@@ -28,12 +28,12 @@ func _physics_process(delta):
 			moving = move_towards(find_node('leftdoor'), POS_LEFT_OPEN, delta)
 			move_towards(find_node('rightdoor'), POS_RIGHT_OPEN, delta)
 			if !moving:
-				event_list.append('open_end:' + str(time))
+				event_list.append('open_end:' + str(global.time))
 		else:
 			moving = move_towards(find_node('leftdoor'), POS_LEFT_CLOSE, delta)
 			move_towards(find_node('rightdoor'), POS_RIGHT_CLOSE, delta)
 			if !moving:
-				event_list.append('close_end:' + str(time))
+				event_list.append('close_end:' + str(global.time))
 
 func move_towards(obj, dest, delta):
 	var distance = (dest - obj.position)
@@ -48,19 +48,19 @@ func open(signal_value):
 	if signal_value == PASSWORD:
 		moving = true
 		open = true
-		event_list.append('open_begin:' + str(time))
+		event_list.append('open_begin:' + str(global.time))
 
 func close(signal_value):
 	if signal_value == PASSWORD:
 		moving = true
 		open = false
-		event_list.append('close_begin:' + str(time))
+		event_list.append('close_begin:' + str(global.time))
 
 func toggle():
 	moving = true
 	open = !open
 	if open:
-		event_list.append('open_begin:' + str(time)) 
+		event_list.append('open_begin:' + str(global.time)) 
 	else:
-		event_list.append('close_begin:' + str(time))
+		event_list.append('close_begin:' + str(global.time))
 	print(event_list) 

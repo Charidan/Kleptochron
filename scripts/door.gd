@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+export(String) var PASSWORD
+
 var open = false
 var moving = false
 const SPEED = 3
@@ -41,6 +43,20 @@ func move_towards(obj, dest, delta):
 		return false
 	obj.position += distance.normalized() * momentum
 	return true
+
+func open(signal_value):
+	print("signal = " + signal_value + " password = " + PASSWORD + " equal? " + str(signal_value == PASSWORD))
+	if signal_value == PASSWORD:
+		moving = true
+		open = true
+		event_list.append('open_begin:' + str(time))
+
+func close(signal_value):
+	print("signal = " + signal_value + " password = " + PASSWORD + " equal? " + str(signal_value == PASSWORD))
+	if signal_value == PASSWORD:
+		moving = true
+		open = false
+		event_list.append('close_begin:' + str(time))
 
 func toggle():
 	moving = true

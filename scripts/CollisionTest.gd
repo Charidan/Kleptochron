@@ -8,11 +8,13 @@ func _ready():
 	pass
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
-	#print(find_node("pressureplate"))
-	#connect('body_enter', find_node("pressureplate"), "_on_pressureplate_body_enter")
+	var pressureplate = find_node("pressureplate")
+	var door = find_node("Door")
+	pressureplate.connect('plate_on', door, "open")
+	pressureplate.connect('plate_off', door, "close")
+	pressureplate.connect("body_entered", self, "_on_pressureplate_body_entered")
 
 func _on_pressureplate_body_entered(body):
 	if body.get_name() == "Character":
 		var pressureplate = find_node("pressureplate")
 		pressureplate.toggle()
-		find_node("Door").toggle()

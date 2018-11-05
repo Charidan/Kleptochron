@@ -64,12 +64,12 @@ scale = Vector2( 10, 1 )
 
 position = Vector2( 438.493, 247.583 )
 _sections_unfolded = [ "Transform" ]
+plate_name = "alpha"
 
 [node name="Door" parent="." index="11" instance=ExtResource( 5 )]
 
 position = Vector2( 475.227, 299.832 )
 scale = Vector2( 2.39617, 1.56712 )
-
-[connection signal="body_entered" from="pressureplate" to="." method="_on_pressureplate_body_entered"]
+PASSWORD = "alpha"
 
 

@@ -71,5 +71,6 @@ plate_name = "alpha"
 position = Vector2( 475.227, 299.832 )
 scale = Vector2( 2.39617, 1.56712 )
 PASSWORD = "alpha"
+SPEED = 9
 
 

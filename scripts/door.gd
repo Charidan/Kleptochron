@@ -4,7 +4,7 @@ export(String) var PASSWORD
 
 var open = false
 var moving = false
-const SPEED = 3
+export(int) var SPEED
 const POS_LEFT_OPEN = Vector2(-10, 0)
 const POS_LEFT_CLOSE = Vector2(-5, 0)
 const POS_RIGHT_OPEN = Vector2(10, 0)
@@ -45,14 +45,12 @@ func move_towards(obj, dest, delta):
 	return true
 
 func open(signal_value):
-	print("signal = " + signal_value + " password = " + PASSWORD + " equal? " + str(signal_value == PASSWORD))
 	if signal_value == PASSWORD:
 		moving = true
 		open = true
 		event_list.append('open_begin:' + str(time))
 
 func close(signal_value):
-	print("signal = " + signal_value + " password = " + PASSWORD + " equal? " + str(signal_value == PASSWORD))
 	if signal_value == PASSWORD:
 		moving = true
 		open = false

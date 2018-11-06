@@ -48,7 +48,9 @@ func find_adjacent_events(t, event_list):
 			return [event_list[m], event_list[m]]
 
 func time_travel_back(delta, children):
+	var prevtime = time
 	time -= delta
+	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))
 	for child in children:
 		if 'event_list' in child:
 			var events = self.find_adjacent_events(time, child.event_list)

@@ -12,13 +12,17 @@ var event_list = []
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
-	pass
+	self.connect('plate_on', self, "set_on")
+	self.connect('plate_off', self, "set_off")
+	
+	self.connect("body_entered", self, "_on_pressureplate_body_entered", [self])
+
+func _on_pressureplate_body_entered(body, origin):
+	if body.get_name() == "Character":
+		origin.toggle()
 
 func toggle():
-	var sprite_on = find_node("sprite_on")
-	var sprite_off = find_node("sprite_off")
-	
-	if sprite_on.is_visible():
+	if find_node("sprite_on").is_visible():
 		emit_signal("plate_off", plate_name)
 		event_list.append(['plate_off', global.time, {'state' : 'off'}])
 	else:

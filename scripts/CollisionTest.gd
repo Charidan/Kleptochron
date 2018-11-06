@@ -12,32 +12,20 @@ func _ready():
 	var pp2 = find_node("PP_Door2")
 	var timeplate = find_node("PP_Time")
 	var door = find_node("Door")
-	pp1.connect('plate_on', door, "open")
-	pp1.connect('plate_off', door, "close")
 	
-	pp2.connect('plate_on', door, "open")
-	pp2.connect('plate_off', door, "close")
-	
-	pp1.connect('plate_on', pp2, "set_on")
-	pp1.connect('plate_off', pp2, "set_off")
-	
-	pp2.connect('plate_on', pp2, "set_on")
-	pp2.connect('plate_off', pp2, "set_off")
-	
-	pp1.connect('plate_on', pp1, "set_on")
-	pp1.connect('plate_off', pp1, "set_off")
-	
-	pp2.connect('plate_on', pp1, "set_on")
-	pp2.connect('plate_off', pp1, "set_off")
-	
-	pp1.connect("body_entered", self, "_on_pressureplate_body_entered", [pp1])
-	pp2.connect("body_entered", self, "_on_pressureplate_body_entered", [pp2])
+	connect_plate_to_door(pp1, door)
+	connect_plate_to_door(pp2, door)
+	connect_plates(pp1, pp2)
 	
 	timeplate.connect("body_entered", self, "_on_pressureplate_body_entered", [timeplate])
 
-func travel_back(delta):
-	global.time_travel_back(delta, self.get_children())
+func connect_plate_to_door(plate, door):
+	plate.connect('plate_on', door, "open")
+	plate.connect('plate_off', door, "close")
 
-func _on_pressureplate_body_entered(body, origin):
-	if body.get_name() == "Character":
-		origin.toggle()
+func connect_plates(a, b):
+	a.connect('plate_on', b, "set_on")
+	a.connect('plate_off', b, "set_off")
+	
+	b.connect('plate_on', a, "set_on")
+	b.connect('plate_off', a, "set_off")

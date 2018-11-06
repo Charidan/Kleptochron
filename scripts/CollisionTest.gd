@@ -34,7 +34,9 @@ func _ready():
 	pp2.connect("body_entered", self, "_on_pressureplate_body_entered", [pp2])
 	
 	timeplate.connect("body_entered", self, "_on_pressureplate_body_entered", [timeplate])
-	
+
+func travel_back(delta):
+	global.time_travel_back(delta, self.get_children())
 
 func _on_pressureplate_body_entered(body, origin):
 	if body.get_name() == "Character":

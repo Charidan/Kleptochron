@@ -20,10 +20,10 @@ func toggle():
 	
 	if sprite_on.is_visible():
 		emit_signal("plate_off", plate_name)
-		event_list.append('plate_off:' + str(global.time))
+		event_list.append(['plate_off', global.time, {'state' : 'off'}])
 	else:
 		emit_signal("plate_on", plate_name)
-		event_list.append('plate_on:' + str(global.time))
+		event_list.append(['plate_on', global.time, {'state' : 'on'}])
 
 func set_on(signal_value):
 	print('Hi' + str(self))
@@ -41,3 +41,13 @@ func set_off(signal_value):
 	
 func is_on():
 	return find_node("sprite_on").is_visible()
+
+func reset_to_events(events):
+	var early_event = events[0][0]
+	var late_event = events[1][0]
+	if early_event == "plate_on":
+		find_node("sprite_on").show()
+		find_node("sprite_off").hide()
+	else:
+		find_node("sprite_on").hide()
+		find_node("sprite_off").show()

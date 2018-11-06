@@ -11,6 +11,8 @@ const POS_RIGHT_OPEN = Vector2(10, 0)
 const POS_RIGHT_CLOSE = Vector2(5, 0)
 var event_list = []
 var time = 0
+var LEFT_DOOR = find_node("leftdoor")
+var RIGHT_DOOR = find_node("rightdoor")
 
 # class member variables go here, for example:
 # var a = 2
@@ -25,15 +27,15 @@ func _physics_process(delta):
 	time += 1
 	if moving:
 		if open:
-			moving = move_towards(find_node('leftdoor'), POS_LEFT_OPEN, delta)
-			move_towards(find_node('rightdoor'), POS_RIGHT_OPEN, delta)
+			moving = move_towards(LEFT_DOOR, POS_LEFT_OPEN, delta)
+			move_towards(RIGHT_DOOR, POS_RIGHT_OPEN, delta)
 			if !moving:
-				event_list.append('open_end:' + str(global.time))
+				event_list.append(['open_end', global.time, {'left_position' : self.POS_LEFT_OPEN, 'right_position' : self.POS_RIGHT_OPEN}])
 		else:
-			moving = move_towards(find_node('leftdoor'), POS_LEFT_CLOSE, delta)
-			move_towards(find_node('rightdoor'), POS_RIGHT_CLOSE, delta)
+			moving = move_towards(LEFT_DOOR, POS_LEFT_CLOSE, delta)
+			move_towards(RIGHT_DOOR, POS_RIGHT_CLOSE, delta)
 			if !moving:
-				event_list.append('close_end:' + str(global.time))
+				event_list.append(['close_end', global.time, {'left_position' : self.POS_LEFT_CLOSE, 'right_position' : self.POS_RIGHT_CLOSE}])
 
 func move_towards(obj, dest, delta):
 	var distance = (dest - obj.position)
@@ -48,19 +50,22 @@ func open(signal_value):
 	if signal_value == PASSWORD:
 		moving = true
 		open = true
-		event_list.append('open_begin:' + str(global.time))
+		event_list.append(['open_begin', global.time, {'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position}])
 
 func close(signal_value):
 	if signal_value == PASSWORD:
 		moving = true
 		open = false
-		event_list.append('close_begin:' + str(global.time))
+		event_list.append(['close_begin', global.time, {'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position}])
 
-func toggle():
-	moving = true
-	open = !open
-	if open:
-		event_list.append('open_begin:' + str(global.time)) 
-	else:
-		event_list.append('close_begin:' + str(global.time))
-	print(event_list) 
+func reset_to_events(events):
+	var early_event = events[0]
+	var late_event = events[1]
+	LEFT_DOOR.position = early_event[2]['left_position']
+	RIGHT_DOOR.position = early_event[2]['right_position']
+	if early_event == 'open_begin':
+		move_towards(LEFT_DOOR, POS_LEFT_OPEN, global.time - early_event[1])
+		move_towards(RIGHT_DOOR, POS_RIGHT_OPEN, global.time - early_event[1])
+	elif early_event == 'close_begin':
+		move_towards(LEFT_DOOR, POS_LEFT_CLOSE, global.time - early_event[1])
+		move_towards(RIGHT_DOOR, POS_RIGHT_CLOSE, global.time - early_event[1])

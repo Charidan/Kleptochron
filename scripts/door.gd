@@ -65,6 +65,7 @@ func reset_to_events(events):
 		return
 	var early_event = events[0]
 	var late_event = events[1]
+	print(early_event)
 	LEFT_DOOR.position = early_event[2]['left_position']
 	RIGHT_DOOR.position = early_event[2]['right_position']
 	if early_event[0] == 'open_begin':

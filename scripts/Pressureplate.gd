@@ -47,9 +47,13 @@ func is_on():
 	return find_node("sprite_on").is_visible()
 
 func reset_to_events(events):
+	if events == null:
+		return
 	var early_event = events[0][0]
-	var late_event = events[1][0]
-	if early_event == "plate_on":
+	var late_event = null
+	if events[1]:
+		late_event = events[1][0]
+	if early_event[0] == "plate_on":
 		find_node("sprite_on").show()
 		find_node("sprite_off").hide()
 	else:

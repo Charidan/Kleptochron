@@ -11,8 +11,8 @@ const POS_RIGHT_OPEN = Vector2(10, 0)
 const POS_RIGHT_CLOSE = Vector2(5, 0)
 var event_list = []
 var time = 0
-var LEFT_DOOR = find_node("leftdoor")
-var RIGHT_DOOR = find_node("rightdoor")
+var LEFT_DOOR
+var RIGHT_DOOR
 
 # class member variables go here, for example:
 # var a = 2
@@ -22,6 +22,8 @@ func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	time = 0
+	LEFT_DOOR = find_node("leftdoor")
+	RIGHT_DOOR = find_node("rightdoor")
 
 func _physics_process(delta):
 	time += 1
@@ -59,13 +61,15 @@ func close(signal_value):
 		event_list.append(['close_begin', global.time, {'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position}])
 
 func reset_to_events(events):
+	if events == null:
+		return
 	var early_event = events[0]
 	var late_event = events[1]
 	LEFT_DOOR.position = early_event[2]['left_position']
 	RIGHT_DOOR.position = early_event[2]['right_position']
-	if early_event == 'open_begin':
+	if early_event[0] == 'open_begin':
 		move_towards(LEFT_DOOR, POS_LEFT_OPEN, global.time - early_event[1])
 		move_towards(RIGHT_DOOR, POS_RIGHT_OPEN, global.time - early_event[1])
-	elif early_event == 'close_begin':
+	elif early_event[0] == 'close_begin':
 		move_towards(LEFT_DOOR, POS_LEFT_CLOSE, global.time - early_event[1])
 		move_towards(RIGHT_DOOR, POS_RIGHT_CLOSE, global.time - early_event[1])

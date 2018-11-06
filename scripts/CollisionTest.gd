@@ -17,7 +17,7 @@ func _ready():
 	connect_plate_to_door(pp2, door)
 	connect_plates(pp1, pp2)
 	
-	timeplate.connect("body_entered", self, "_on_pressureplate_body_entered", [timeplate])
+	timeplate.connect('plate_on', self, 'travel_back', [600])
 
 func connect_plate_to_door(plate, door):
 	plate.connect('plate_on', door, "open")
@@ -29,3 +29,7 @@ func connect_plates(a, b):
 	
 	b.connect('plate_on', a, "set_on")
 	b.connect('plate_off', a, "set_off")
+
+func travel_back(signal_value, delta=600):
+	if signal_value == 'time':
+		global.time_travel_back(delta, self.get_children())

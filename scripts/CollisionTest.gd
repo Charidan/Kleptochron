@@ -17,7 +17,7 @@ func _ready():
 	connect_plate_to_door(pp2, door)
 	connect_plates(pp1, pp2)
 	
-	timeplate.connect('plate_on', self, 'travel_back', [600])
+	timeplate.connect('plate_on', self, 'travel_back', [300])
 
 func connect_plate_to_door(plate, door):
 	plate.connect('plate_on', door, "open")

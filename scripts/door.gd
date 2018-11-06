@@ -10,7 +10,6 @@ const POS_LEFT_CLOSE = Vector2(-5, 0)
 const POS_RIGHT_OPEN = Vector2(10, 0)
 const POS_RIGHT_CLOSE = Vector2(5, 0)
 var event_list = []
-var time = 0
 var LEFT_DOOR
 var RIGHT_DOOR
 
@@ -21,12 +20,10 @@ var RIGHT_DOOR
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
-	time = 0
 	LEFT_DOOR = find_node("leftdoor")
 	RIGHT_DOOR = find_node("rightdoor")
 
 func _physics_process(delta):
-	time += 1
 	if moving:
 		if open:
 			moving = move_towards(LEFT_DOOR, POS_LEFT_OPEN, delta)
@@ -65,6 +62,7 @@ func reset_to_events(events):
 		return
 	var early_event = events[0]
 	var late_event = events[1]
+	print(early_event)
 	LEFT_DOOR.position = early_event[2]['left_position']
 	RIGHT_DOOR.position = early_event[2]['right_position']
 	if early_event[0] == 'open_begin':

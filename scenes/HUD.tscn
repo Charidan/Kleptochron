@@ -1,12 +1,22 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/time_jump.png" type="Texture" id=2]
-[ext_resource path="res://assets/time_pause.png" type="Texture" id=3]
-[ext_resource path="res://assets/time_pause_disabled.png" type="Texture" id=4]
-[ext_resource path="res://assets/time_play.png" type="Texture" id=5]
-[ext_resource path="res://assets/time_play_disabled.png" type="Texture" id=6]
-[ext_resource path="res://scenes/time_slider.gd" type="Script" id=7]
+[ext_resource path="res://assets/time_jump_pressed.png" type="Texture" id=3]
+[ext_resource path="res://assets/time_jump_hover.png" type="Texture" id=4]
+[ext_resource path="res://assets/time_jump_disabled.png" type="Texture" id=5]
+[ext_resource path="res://assets/time_jump_focused.png" type="Texture" id=6]
+[ext_resource path="res://assets/time_pause.png" type="Texture" id=7]
+[ext_resource path="res://assets/time_pause_pressed.png" type="Texture" id=8]
+[ext_resource path="res://assets/time_pause_hover.png" type="Texture" id=9]
+[ext_resource path="res://assets/time_pause_disabled.png" type="Texture" id=10]
+[ext_resource path="res://assets/time_pause_focused.png" type="Texture" id=11]
+[ext_resource path="res://assets/time_play.png" type="Texture" id=12]
+[ext_resource path="res://assets/time_play_pressed.png" type="Texture" id=13]
+[ext_resource path="res://assets/time_play_hover.png" type="Texture" id=14]
+[ext_resource path="res://assets/time_play_disabled.png" type="Texture" id=15]
+[ext_resource path="res://assets/time_play_focused.png" type="Texture" id=16]
+[ext_resource path="res://scripts/time_slider.gd" type="Script" id=17]
 
 [node name="HUD" type="MarginContainer" index="0"]
 
@@ -58,7 +68,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 alignment = 2
-_sections_unfolded = [ "Grow Direction", "Size Flags" ]
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Size Flags" ]
 
 [node name="button_jump" type="TextureButton" parent="VBoxContainer/HBoxContainer" index="0"]
 
@@ -66,8 +76,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 912.0
-margin_right = 944.0
+margin_left = 900.0
+margin_right = 932.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -82,10 +92,10 @@ enabled_focus_mode = 2
 shortcut = null
 group = null
 texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 2 )
-texture_hover = ExtResource( 2 )
-texture_disabled = ExtResource( 2 )
-texture_focused = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 5 )
+texture_focused = ExtResource( 6 )
 _sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "Material", "Mouse", "Pause", "Rect", "Size Flags", "Textures", "Theme", "Visibility" ]
 
 [node name="button_pause" type="TextureButton" parent="VBoxContainer/HBoxContainer" index="1"]
@@ -94,8 +104,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 948.0
-margin_right = 980.0
+margin_left = 936.0
+margin_right = 968.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -109,11 +119,11 @@ action_mode = 0
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 3 )
-texture_hover = ExtResource( 4 )
-texture_disabled = ExtResource( 3 )
-texture_focused = ExtResource( 4 )
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+texture_disabled = ExtResource( 10 )
+texture_focused = ExtResource( 11 )
 _sections_unfolded = [ "Textures" ]
 
 [node name="button_play" type="TextureButton" parent="VBoxContainer/HBoxContainer" index="2"]
@@ -122,7 +132,81 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 984.0
+margin_left = 972.0
+margin_right = 1004.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+action_mode = 0
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 14 )
+texture_disabled = ExtResource( 15 )
+texture_focused = ExtResource( 16 )
+_sections_unfolded = [ "Textures" ]
+
+[node name="button_blank" type="TextureButton" parent="VBoxContainer/HBoxContainer" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1008.0
+margin_right = 1008.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+action_mode = 0
+enabled_focus_mode = 2
+shortcut = null
+group = null
+_sections_unfolded = [ "Textures" ]
+
+[node name="button_blank2" type="TextureButton" parent="VBoxContainer/HBoxContainer" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1012.0
+margin_right = 1012.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+action_mode = 0
+enabled_focus_mode = 2
+shortcut = null
+group = null
+_sections_unfolded = [ "Textures" ]
+
+[node name="button_blank3" type="TextureButton" parent="VBoxContainer/HBoxContainer" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1016.0
 margin_right = 1016.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -137,11 +221,6 @@ action_mode = 0
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 5 )
-texture_hover = ExtResource( 6 )
-texture_disabled = ExtResource( 5 )
-texture_focused = ExtResource( 6 )
 _sections_unfolded = [ "Textures" ]
 
 [node name="time_slider" type="HSlider" parent="VBoxContainer" index="1"]
@@ -171,7 +250,7 @@ editable = true
 tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
-script = ExtResource( 7 )
+script = ExtResource( 17 )
 
 [connection signal="value_changed" from="VBoxContainer/time_slider" to="VBoxContainer/time_slider" method="timeskip"]
 

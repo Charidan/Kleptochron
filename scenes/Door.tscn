@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/door.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprite_door.png" type="Texture" id=2]
 
-[node name="Door" type="StaticBody2D" index="0"]
+[node name="Door" type="StaticBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -21,12 +21,12 @@ SPEED = null
 
 position = Vector2( -5, 0 )
 build_mode = 0
-polygon = PoolVector2Array( 5, 50, -45, 50, -45, -50, 5, -50 )
+polygon = PoolVector2Array( 5, 25, -20, 25, -20, -25, 5, -25 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="sprite_leftdoor" type="Sprite" parent="leftdoor" index="0"]
 
-position = Vector2( -20, 0 )
+position = Vector2( -7, 0 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
@@ -34,12 +34,12 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( 5, 0 )
 build_mode = 0
-polygon = PoolVector2Array( -5, 50, 45, 50, 45, -50, -5, -50 )
+polygon = PoolVector2Array( -5, 25, 20, 25, 20, -25, -5, -25 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="sprite_rightdoor" type="Sprite" parent="rightdoor" index="0"]
 
-position = Vector2( 20, -5.07036e-005 )
+position = Vector2( 7.5, 0 )
 rotation = 3.14159
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]

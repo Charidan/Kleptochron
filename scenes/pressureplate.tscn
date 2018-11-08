@@ -32,6 +32,6 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
 
 build_mode = 0
-polygon = PoolVector2Array( -50, 50, 50, 50, 50, -50, -50, -50 )
+polygon = PoolVector2Array( -25, 25, 25, 25, 25, -25, -25, -25 )
 
 

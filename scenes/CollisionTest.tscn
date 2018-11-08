@@ -19,28 +19,24 @@ scale = Vector2( 0.25, 0.25 )
 [node name="PP_Door1" parent="." index="1" instance=ExtResource( 3 )]
 
 position = Vector2( 475, 275 )
-scale = Vector2( 0.5, 0.5 )
 _sections_unfolded = [ "Transform" ]
 plate_name = "alpha"
 
 [node name="PP_Door2" parent="." index="2" instance=ExtResource( 3 )]
 
 position = Vector2( 475, 375 )
-scale = Vector2( 0.5, 0.5 )
 _sections_unfolded = [ "Transform" ]
 plate_name = "alpha"
 
 [node name="PP_Time" parent="." index="3" instance=ExtResource( 3 )]
 
 position = Vector2( -25, 375 )
-scale = Vector2( 0.5, 0.5 )
 _sections_unfolded = [ "Transform" ]
 plate_name = "time"
 
 [node name="Door" parent="." index="4" instance=ExtResource( 4 )]
 
 position = Vector2( 475.227, 325 )
-scale = Vector2( 0.5, 0.5 )
 PASSWORD = "alpha"
 SPEED = 25
 

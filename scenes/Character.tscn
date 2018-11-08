@@ -31,6 +31,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
 
+pause_mode = 2
 anchor_mode = 1
 rotating = false
 current = true

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/CollisionTest.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/pressureplate.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/pressureplate.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tilesets/Interior.tres" type="TileSet" id=5]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=6]
 
 [node name="Node2D" type="Node2D" index="0"]
 
@@ -12,65 +13,82 @@ script = ExtResource( 1 )
 
 [node name="Character" parent="." index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 500, 250 )
+position = Vector2( 472, 216 )
 scale = Vector2( 0.25, 0.25 )
 
-[node name="ExteriorEast" parent="." index="1" instance=ExtResource( 3 )]
+[node name="PP_Door1" parent="." index="1" instance=ExtResource( 3 )]
 
-position = Vector2( 1000, 300 )
-scale = Vector2( 1, 10 )
-
-[node name="StartingRoomWest" parent="." index="2" instance=ExtResource( 3 )]
-
-position = Vector2( 400, 240 )
-scale = Vector2( 0.25, 1 )
-
-[node name="StartingRoomEast" parent="." index="3" instance=ExtResource( 3 )]
-
-position = Vector2( 550, 240 )
-scale = Vector2( 0.25, 1 )
-
-[node name="StartingRoomNorth" parent="." index="4" instance=ExtResource( 3 )]
-
-position = Vector2( 475, 190 )
-scale = Vector2( 1.75, 0.25 )
-
-[node name="StartingRoomSouthR" parent="." index="5" instance=ExtResource( 3 )]
-
-position = Vector2( 531.5, 300 )
-scale = Vector2( 0.625, 0.25 )
-
-[node name="StartingRoomSouthL" parent="." index="6" instance=ExtResource( 3 )]
-
-position = Vector2( 418.75, 299.884 )
-scale = Vector2( 0.625, 0.25 )
-
-[node name="ExteriorWest" parent="." index="7" instance=ExtResource( 3 )]
-
-position = Vector2( 10, 300 )
-scale = Vector2( 1, 10 )
-
-[node name="ExteriorNorth" parent="." index="8" instance=ExtResource( 3 )]
-
-position = Vector2( 450, 0 )
-scale = Vector2( 10, 1 )
-
-[node name="ExteriorSouth" parent="." index="9" instance=ExtResource( 3 )]
-
-position = Vector2( 500, 600 )
-scale = Vector2( 10, 1 )
-
-[node name="pressureplate" parent="." index="10" instance=ExtResource( 4 )]
-
-position = Vector2( 438.493, 247.583 )
+position = Vector2( 475, 275 )
 _sections_unfolded = [ "Transform" ]
 plate_name = "alpha"
 
-[node name="Door" parent="." index="11" instance=ExtResource( 5 )]
+[node name="PP_DoorT1" parent="." index="2" instance=ExtResource( 3 )]
 
-position = Vector2( 475.227, 299.832 )
-scale = Vector2( 2.39617, 1.56712 )
+position = Vector2( -175, 125 )
+_sections_unfolded = [ "Transform" ]
+plate_name = "beta"
+
+[node name="PP_Door2" parent="." index="3" instance=ExtResource( 3 )]
+
+position = Vector2( 475, 375 )
+_sections_unfolded = [ "Transform" ]
+plate_name = "alpha"
+
+[node name="PP_DoorT2" parent="." index="4" instance=ExtResource( 3 )]
+
+position = Vector2( -275, 125 )
+_sections_unfolded = [ "Transform" ]
+plate_name = "beta"
+
+[node name="PP_Time" parent="." index="5" instance=ExtResource( 3 )]
+
+position = Vector2( -25, 375 )
+_sections_unfolded = [ "Transform" ]
+plate_name = "time"
+
+[node name="Door" parent="." index="6" instance=ExtResource( 4 )]
+
+position = Vector2( 475.227, 325 )
 PASSWORD = "alpha"
-SPEED = 9
+SPEED = 25
+
+[node name="TimeDoor" parent="." index="7" instance=ExtResource( 4 )]
+
+position = Vector2( -225, 125 )
+rotation = 1.5708
+PASSWORD = "beta"
+SPEED = 10
+
+[node name="TileMap" type="TileMap" parent="." index="8"]
+
+z_index = -3
+mode = 0
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 50, 50 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( -7, 0, 0, -6, 0, 0, -5, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, 65529, 0, 0, 65530, 1, 0, 65531, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 0, 0, 131065, 0, 0, 131066, 1, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 1, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 1, 0, 65551, 0, 0, 196601, 0, 0, 196602, 1, 0, 196603, 1, 0, 196604, 1, 0, 196605, 1, 0, 196606, 1, 0, 196607, 1, 0, 131072, 0, 0, 131073, 1, 0, 131074, 0, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 1, 0, 131079, 1, 0, 131080, 1, 0, 131081, 1, 0, 131082, 1, 0, 131083, 1, 0, 131084, 1, 0, 131085, 0, 0, 131086, 1, 0, 131087, 0, 0, 262137, 0, 0, 262138, 1, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 1, 0, 196608, 0, 0, 196609, 1, 0, 196610, 0, 0, 196611, 1, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 1, 0, 196621, 0, 0, 196622, 1, 0, 196623, 0, 0, 327673, 0, 0, 327674, 1, 0, 327675, 0, 0, 327676, 1, 0, 327677, 1, 0, 327678, 1, 0, 327679, 1, 0, 262144, 0, 0, 262145, 1, 0, 262146, 0, 0, 262147, 1, 0, 262148, 0, 0, 262149, 1, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1, 0, 262153, 1, 0, 262154, 1, 0, 262155, 0, 0, 262156, 1, 0, 262157, 1, 0, 262158, 1, 0, 262159, 0, 0, 393209, 0, 0, 393210, 1, 0, 393211, 0, 0, 393212, 1, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 1, 0, 327682, 0, 0, 327683, 1, 0, 327684, 0, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 0, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 0, 0, 458745, 0, 0, 458746, 1, 0, 458747, 0, 0, 458748, 1, 0, 458749, 1, 0, 458750, 1, 0, 458751, 1, 0, 393216, 0, 0, 393217, 1, 0, 393218, 0, 0, 393219, 1, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 1, 0, 393226, 0, 0, 393227, 0, 0, 393228, 1, 0, 393229, 0, 0, 393230, 1, 0, 393231, 0, 0, 524281, 0, 0, 524282, 1, 0, 524283, 0, 0, 524284, 0, 0, 524285, 1, 0, 524286, 0, 0, 524287, 1, 0, 458752, 0, 0, 458753, 1, 0, 458754, 0, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 0, 0, 458766, 1, 0, 458767, 0, 0, 589817, 0, 0, 589818, 1, 0, 589819, 1, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 1, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 1, 0, 524303, 0, 0, 655353, 0, 0, 655354, 1, 0, 655355, 1, 0, 655356, 1, 0, 655357, 1, 0, 655358, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 0, 0, 720889, 0, 0, 720890, 0, 0, 720891, 0, 0, 720892, 0, 0, 720893, 0, 0, 720894, 0, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0 )
+_sections_unfolded = [ "Cell", "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="9"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="HUD" parent="CanvasLayer" index="0" instance=ExtResource( 6 )]
 
 

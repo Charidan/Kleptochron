@@ -12,10 +12,16 @@ func _ready():
 	var pp2 = find_node("PP_Door2")
 	var timeplate = find_node("PP_Time")
 	var door = find_node("Door")
+	var tdoor = find_node("TimeDoor")
+	var tpp1 = find_node("PP_DoorT1")
+	var tpp2 = find_node("PP_DoorT2")
 	
 	connect_plate_to_door(pp1, door)
 	connect_plate_to_door(pp2, door)
 	connect_plates(pp1, pp2)
+	connect_plate_to_door(tpp1, tdoor)
+	connect_plate_to_door(tpp2, tdoor)
+	connect_plates(tpp1, tpp2)
 	
 	timeplate.connect('plate_on', self, 'travel_back', [300])
 

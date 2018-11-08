@@ -22,30 +22,49 @@ position = Vector2( 475, 275 )
 _sections_unfolded = [ "Transform" ]
 plate_name = "alpha"
 
-[node name="PP_Door2" parent="." index="2" instance=ExtResource( 3 )]
+[node name="PP_DoorT1" parent="." index="2" instance=ExtResource( 3 )]
+
+position = Vector2( -175, 125 )
+_sections_unfolded = [ "Transform" ]
+plate_name = "beta"
+
+[node name="PP_Door2" parent="." index="3" instance=ExtResource( 3 )]
 
 position = Vector2( 475, 375 )
 _sections_unfolded = [ "Transform" ]
 plate_name = "alpha"
 
-[node name="PP_Time" parent="." index="3" instance=ExtResource( 3 )]
+[node name="PP_DoorT2" parent="." index="4" instance=ExtResource( 3 )]
+
+position = Vector2( -275, 125 )
+_sections_unfolded = [ "Transform" ]
+plate_name = "beta"
+
+[node name="PP_Time" parent="." index="5" instance=ExtResource( 3 )]
 
 position = Vector2( -25, 375 )
 _sections_unfolded = [ "Transform" ]
 plate_name = "time"
 
-[node name="Door" parent="." index="4" instance=ExtResource( 4 )]
+[node name="Door" parent="." index="6" instance=ExtResource( 4 )]
 
 position = Vector2( 475.227, 325 )
 PASSWORD = "alpha"
 SPEED = 25
 
-[node name="HUD" parent="." index="5" instance=ExtResource( 5 )]
+[node name="TimeDoor" parent="." index="7" instance=ExtResource( 4 )]
+
+position = Vector2( -225, 125 )
+rotation = 1.5708
+PASSWORD = "beta"
+SPEED = 10
+
+[node name="HUD" parent="." index="8" instance=ExtResource( 5 )]
 
 visible = false
 _sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Pause", "Rect", "Size Flags", "Visibility" ]
 
-[node name="TileMap" type="TileMap" parent="." index="6"]
+[node name="TileMap" type="TileMap" parent="." index="9"]
 
 z_index = -3
 mode = 0

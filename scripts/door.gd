@@ -5,9 +5,9 @@ export(String) var PASSWORD
 var open = false
 var moving = false
 export(int) var SPEED
-const POS_LEFT_OPEN = Vector2(-10, 0)
+const POS_LEFT_OPEN = Vector2(-50, 0)
 const POS_LEFT_CLOSE = Vector2(-5, 0)
-const POS_RIGHT_OPEN = Vector2(10, 0)
+const POS_RIGHT_OPEN = Vector2(50, 0)
 const POS_RIGHT_CLOSE = Vector2(5, 0)
 var event_list = []
 var LEFT_DOOR

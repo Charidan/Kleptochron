@@ -86,6 +86,14 @@ scale = Vector2( 2.39617, 1.56712 )
 PASSWORD = "alpha"
 SPEED = 9
 
-[node name="HUD" parent="." index="14" instance=ExtResource( 6 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="14"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="HUD" parent="CanvasLayer" index="0" instance=ExtResource( 6 )]
 
 

@@ -1,14 +1,17 @@
 extends Node
 
-var time = 0
+var time = 600
+var furthest_present = 600
 
 func _physics_process(delta):
 	time += 1
+	if time > furthest_present:
+		furthest_present = time
 	if time % 100 == 0:
 		print(time)
 
 func reset_time():
-	time = 0
+	time = 600
 
 func find_adjacent_events(t, event_list):
 	#Does a binary search
@@ -48,6 +51,8 @@ func find_adjacent_events(t, event_list):
 			return [event_list[m], event_list[m]]
 
 func time_travel_back(delta, children):
+	print(children)
+	delta = int(delta)
 	var prevtime = time
 	time -= delta
 	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))

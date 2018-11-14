@@ -62,3 +62,6 @@ func reset_to_events(events):
 	elif early_event[0] == "plate_off":
 		sprite_on.hide()
 		sprite_off.show()
+	var start_index = self.event_list.find(early_event)+1
+	for i in range(start_index, len(event_list)):
+		self.event_list.remove(i)

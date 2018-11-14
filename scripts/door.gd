@@ -71,3 +71,7 @@ func reset_to_events(events):
 	elif early_event[0] == 'close_begin':
 		move_towards(LEFT_DOOR, POS_LEFT_CLOSE, global.time - early_event[1])
 		move_towards(RIGHT_DOOR, POS_RIGHT_CLOSE, global.time - early_event[1])
+	#remove all events after the early event
+	var start_index = self.event_list.find(late_event)
+	for i in range(start_index, len(event_list)):
+		self.event_list.remove(i)

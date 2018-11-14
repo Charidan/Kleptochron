@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var speed = 5
+var state = 'active'
 
 var event_list = []
 
@@ -8,30 +9,31 @@ func _ready():
 	event_list.append(['motion', global.time, {'position' : self.position, 'velocity' : Vector2(0,0), 'facing' : Vector2(0,1)}])
 
 func _physics_process(delta):
-	var velocity = Vector2()
-	#Change the below to not use ui input at some point
-	#TODO: Change this later
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		look_at(position - velocity)
-		velocity = move_and_slide(velocity)
-	# record a temporal event if our trajectory differs from the previous frame
-	# this *could* get data intensive, but there's only one character
-	if event_list[len(event_list) - 1][2]['velocity'] != velocity:
-		# python ternary
-		# var a = THEN if COND else ELSE
-		var facing = velocity if velocity != Vector2(0,0) else event_list[len(event_list) - 1][2]['velocity']
-		event_list.append(['motion', global.time, {'position' : self.position, 'velocity' : velocity, 'facing' : facing}])
-	#update position AFTER storing the event (if necessary)
-	position += velocity
+	if self.state == 'active':
+		var velocity = Vector2()
+		#Change the below to not use ui input at some point
+		#TODO: Change this later
+		if Input.is_action_pressed("ui_right"):
+			velocity.x += 1
+		if Input.is_action_pressed("ui_left"):
+			velocity.x -= 1
+		if Input.is_action_pressed("ui_down"):
+			velocity.y += 1
+		if Input.is_action_pressed("ui_up"):
+			velocity.y -= 1
+		if velocity.length() > 0:
+			velocity = velocity.normalized() * speed
+			look_at(position - velocity)
+			velocity = move_and_slide(velocity)
+		# record a temporal event if our trajectory differs from the previous frame
+		# this *could* get data intensive, but there's only one character
+		if event_list[len(event_list) - 1][2]['velocity'] != velocity:
+			# python ternary
+			# var a = THEN if COND else ELSE
+			var facing = velocity if velocity != Vector2(0,0) else event_list[len(event_list) - 1][2]['velocity']
+			event_list.append(['motion', global.time, {'position' : self.position, 'velocity' : velocity, 'facing' : facing}])
+		#update position AFTER storing the event (if necessary)
+		position += velocity
 func reset_to_events(events):
 	if events == null:
 		return

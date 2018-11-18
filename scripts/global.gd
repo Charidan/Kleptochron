@@ -1,7 +1,11 @@
 extends Node
 
+var Character = preload("res://scenes/Character.tscn")
+
 var time = 600
 var furthest_present = 600
+var player = null
+var player_ghost = null
 
 func _physics_process(delta):
 	time += 1
@@ -56,7 +60,41 @@ func time_travel_back(delta, children):
 	var prevtime = time
 	time -= delta
 	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))
+	# if *returning* to the present
+	if time == furthest_present and prevtime != furthest_present:
+		if player_ghost:
+			# give the old player a camera back
+			var cam = player_ghost.find_node("Camera2D")
+			player_ghost.remove_child(cam)
+			player.add_child(cam)
+			
+			# delete the ghost
+			player_ghost.queue_free()
+			player_ghost = null
+			
+			# return control to the player
+			player.state = 'active'
+			player.event_list.pop_back()
+	else:
+		if not player_ghost:
+			# set previous player to replay state preemptively
+			player.state = 'replay'
+			
+			# spawn ghost player to sit in the present, add it to the node tree
+			player_ghost = Character.instance()
+			player.get_parent().add_child(player_ghost)
+			player_ghost.position = player.position
+			player_ghost.rotation = player.rotation
+			
+			# delete the old player's camera so only one camera exists in the scene
+			player.find_node("Camera2D").queue_free()
+			player.event_list.append(['depart', time, {'position' : player_ghost.position, 'facing' : player_ghost.rotation}])
+		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'facing' : player_ghost.rotation}]]
 	for child in children:
 		if 'event_list' in child:
 			var events = self.find_adjacent_events(time, child.event_list)
 			child.reset_to_events(events)
+
+func unpause():
+	player = player_ghost
+	player_ghost = null

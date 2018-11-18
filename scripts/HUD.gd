@@ -38,4 +38,5 @@ func unpause():
 	button_pause.pressed = false
 	global.furthest_present = global.time
 	time_slider.value = 1
+	global.unpause()
 	get_tree().paused = false

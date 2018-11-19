@@ -57,6 +57,7 @@ func _physics_process(delta):
 				replay_index += 1
 				print("new event = " + str(event_list[replay_index]) + " with target = " + (str(event_list[replay_index + 1][2]['position']) if replay_index + 1 < len(event_list) else "null"))
 		if event[0] == 'wait':
+			# TODO consider making this a check of relative number of ticks waited instead of matching the global timer
 			if event[1] <= global.time:
 				replay_index += 1
 		if event[0] == 'depart':

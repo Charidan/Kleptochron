@@ -88,13 +88,14 @@ func time_travel_back(delta, children):
 			
 			# delete the old player's camera so only one camera exists in the scene
 			player.find_node("Camera2D").queue_free()
-			player.event_list.append(['depart', time, {'position' : player_ghost.position, 'facing' : player_ghost.rotation}])
-		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'facing' : player_ghost.rotation}]]
+			player.event_list.append(['depart', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
+		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}]]
 	for child in children:
 		if 'event_list' in child:
 			var events = self.find_adjacent_events(time, child.event_list)
 			child.reset_to_events(events)
 
 func unpause():
+	player.start_replay(time)
 	player = player_ghost
 	player_ghost = null

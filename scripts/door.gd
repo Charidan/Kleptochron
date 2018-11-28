@@ -16,6 +16,9 @@ var RIGHT_DOOR
 func _ready():
 	LEFT_DOOR = find_node("leftdoor")
 	RIGHT_DOOR = find_node("rightdoor")
+	
+	# seed an initial event
+	event_list.append(['close_end', 0, {'left_position' : self.POS_LEFT_CLOSE, 'right_position' : self.POS_RIGHT_CLOSE}])
 
 func _physics_process(delta):
 	if moving:

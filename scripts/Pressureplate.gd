@@ -16,6 +16,10 @@ func _ready():
 	self.connect('plate_off', self, "set_off")
 	
 	self.connect("body_entered", self, "_on_pressureplate_body_entered", [self])
+	
+	# seed an initial event
+	var event_type_string = 'plate_on' if is_on() else 'plate_off'
+	event_list.append([event_type_string, 0, {'state' : is_on()}])
 
 func _on_pressureplate_body_entered(body, origin):
 	if body.get_name() == "Character":

@@ -103,7 +103,10 @@ func time_travel(target_time, children):
 			var oldcam = player.find_node("Camera2D")
 			if oldcam:
 				oldcam.queue_free()
-			player.event_list.append(['depart', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
+			
+			# add a temporal departure to the player
+			player.event_list.append(['depart', prevtime, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
+		# override the ghost's event list so its only event is its arrival
 		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}]]
 	for child in children:
 		if 'event_list' in child:
@@ -116,8 +119,10 @@ func jump(children):
 	player_ghost = null
 	
 	for child in children:
-		if 'finalize_jump' in child:
-			child.finalize_jump()
+		if child.has_method('finalize_jump'):
+			print("finalizing for object " + str(child))
+			child.finalize_jump(time)
+	print('jump done')
 
 func wipe_future(entity, t):
 	#remove all events after the specified time

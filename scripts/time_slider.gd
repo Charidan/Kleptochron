@@ -31,10 +31,11 @@ func set_time(time):
 
 func timeskip(val):
 	# if the slider is at the current_present or the game is not paused, disable the jump button
-	button_jump.disabled = get_slider_time(val) == current_present || !get_tree().paused
 	if suppress_signal:
+		button_jump.disabled = get_slider_time(val) == global.current_present || !get_tree().paused
 		return
 	emit_signal("pause")
+	button_jump.disabled = get_slider_time(val) == global.current_present || !get_tree().paused
 	print("UPP = " + str(global.furthest_present - global.UPP_DISTANCE) + " beach = " + str(global.furthest_present) + " target = " + str(lerp(global.furthest_present - global.UPP_DISTANCE, global.furthest_present, val)))
 	#lerp between furthest_present anchor and UPP to get target time
 	#subtract target time from current time to get delta

@@ -37,6 +37,8 @@ func _physics_process(delta):
 		#update position AFTER storing the event (if necessary)
 		position += velocity
 	elif self.state == 'replay':
+		if replay_index > len(event_list):
+			return
 		var event = event_list[replay_index]
 		if event[0] == 'motion':
 			# set velocity to go to (not past) next waypoint

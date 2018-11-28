@@ -5,6 +5,7 @@ var Character = preload("res://scenes/Character.tscn")
 const UPP_DISTANCE = 600
 var time = UPP_DISTANCE
 var furthest_present = UPP_DISTANCE
+var current_present = furthest_present
 var player = null
 var player_ghost = null
 
@@ -70,11 +71,11 @@ func time_travel(target_time, children):
 	if time == target_time:
 		return
 	print(children)
-	var prevtime = time
+	current_present = time
 	time = target_time
 	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))
 	# if *returning* to the present
-	if time == furthest_present and prevtime != furthest_present:
+	if time == furthest_present and current_present != furthest_present:
 		if player_ghost:
 			# give the old player a camera back
 			var cam = player_ghost.find_node("Camera2D")
@@ -105,7 +106,7 @@ func time_travel(target_time, children):
 				oldcam.queue_free()
 			
 			# add a temporal departure to the player
-			player.event_list.append(['depart', prevtime, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
+			player.event_list.append(['depart', current_present, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
 		# override the ghost's event list so its only event is its arrival
 		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}]]
 	for child in children:

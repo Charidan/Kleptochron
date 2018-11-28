@@ -20,11 +20,13 @@ func _ready():
 	button_jump.connect("pressed", self, "jump")
 	button_pause.connect("pressed", self, "pause")
 	button_play.connect("pressed", self, "play")
+	
+	button_jump.disabled = true
 
 #return to present and unpause
 func play():
 	print("played")
-	global.time_travel(global.furthest_present, global.find_children())
+	global.time_travel(global.current_present, global.find_children())
 	unpause()
 
 #wipe futures and unpause
@@ -45,4 +47,5 @@ func unpause():
 	button_pause.disabled = false
 	button_play.disabled = true
 	button_pause.pressed = false
+	button_jump.disabled = true
 	get_tree().paused = false

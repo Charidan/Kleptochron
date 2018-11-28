@@ -2,10 +2,13 @@ extends HSlider
 signal pause
 
 var suppress_signal = false
+var button_jump = null
 
 func _ready():
 	self.focus_mode = Control.FOCUS_NONE
 	self.connect("value_changed", self, "timeskip")
+	
+	button_jump = get_parent().find_node('button_jump')
 
 func _physics_process(delta):
 	suppress_signal = true
@@ -27,6 +30,8 @@ func set_time(time):
 	suppress_signal = false
 
 func timeskip(val):
+	# if the slider is at the current_present or the game is not paused, disable the jump button
+	button_jump.disabled = get_slider_time(val) == current_present || !get_tree().paused
 	if suppress_signal:
 		return
 	emit_signal("pause")
@@ -34,3 +39,4 @@ func timeskip(val):
 	#lerp between furthest_present anchor and UPP to get target time
 	#subtract target time from current time to get delta
 	global.time_travel(get_slider_time(val), global.find_children())
+	

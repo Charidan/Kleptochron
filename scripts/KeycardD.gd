@@ -4,6 +4,7 @@ signal picked_up(signal_value)
 export(String) var card_name
 var event_list = []
 export(String) var card_color
+var sprite
 
 # class member variables go here, for example:
 # var a = 2
@@ -11,6 +12,13 @@ export(String) var card_color
 
 func _ready():
 	self.connect("body_entered", self, "_on_keycard_body_entered", [self])
+	sprite = find_node("Keycard_Sprite")
+	if card_color == "blue":
+		sprite.modulate = Color(0, 0, 1)
+	elif card_color == "green":
+		sprite.modulate = Color(0, 1, 0)
+	elif card_color == "red":
+		sprite.modulate = Color(1, 0, 0)
 
 func _on_keycard_body_entered(body, origin):
 	if body.get_name() == "Character":

@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sprite_red_keycard.png-48eadc547731dcea80699859f89f0c16.stex"
+path="res://.import/sprite_keycard.png-ed8ec377c3a5312cd30d810f801bf1b1.stex"
 
 [deps]
 
-source_file="res://assets/sprite_red_keycard.png"
-dest_files=[ "res://.import/sprite_red_keycard.png-48eadc547731dcea80699859f89f0c16.stex" ]
+source_file="res://assets/sprite_keycard.png"
+dest_files=[ "res://.import/sprite_keycard.png-ed8ec377c3a5312cd30d810f801bf1b1.stex" ]
 
 [params]
 

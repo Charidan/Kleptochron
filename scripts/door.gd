@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-export(String) var PASSWORD
+export(String) var KEYCARD = "None"
 
 var open = false
 var moving = false
@@ -22,6 +22,7 @@ func _ready():
 	# Initialization here
 	LEFT_DOOR = find_node("leftdoor")
 	RIGHT_DOOR = find_node("rightdoor")
+	
 
 func _physics_process(delta):
 	if moving:
@@ -45,17 +46,15 @@ func move_towards(obj, dest, delta):
 	obj.position += distance.normalized() * momentum
 	return true
 
-func open(signal_value):
-	if signal_value == PASSWORD:
-		moving = true
-		open = true
-		event_list.append(['open_begin', global.time, {'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position}])
+func open():
+	moving = true
+	open = true
+	event_list.append(['open_begin', global.time, {'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position}])
 
-func close(signal_value):
-	if signal_value == PASSWORD:
-		moving = true
-		open = false
-		event_list.append(['close_begin', global.time, {'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position}])
+func close():
+	moving = true
+	open = false
+	event_list.append(['close_begin', global.time, {'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position}])
 
 func reset_to_events(events):
 	if events == null:

@@ -1,8 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/Door.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprite_door.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Detection.gd" type="Script" id=3]
 
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 55.0
 
 [node name="Door" type="StaticBody2D"]
 
@@ -15,7 +20,7 @@ friction = 1.0
 bounce = 0.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-PASSWORD = null
+KEYCARD = "None"
 SPEED = null
 
 [node name="leftdoor" type="CollisionPolygon2D" parent="." index="0"]
@@ -44,5 +49,21 @@ position = Vector2( 7.5, 0 )
 rotation = 3.14159
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="Detection" type="Area2D" parent="." index="2"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 3 )
+
+[node name="Circle_Detection" type="CollisionShape2D" parent="Detection" index="0"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 

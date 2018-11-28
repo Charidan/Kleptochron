@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/CollisionTest.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=4]
 [ext_resource path="res://tilesets/Interior.tres" type="TileSet" id=5]
 [ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Keycard.tscn" type="PackedScene" id=7]
 
 [node name="Node2D" type="Node2D" index="0"]
 
@@ -89,5 +90,11 @@ scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="HUD" parent="CanvasLayer" index="0" instance=ExtResource( 6 )]
+
+[node name="Keycard" parent="." index="10" instance=ExtResource( 7 )]
+
+position = Vector2( 72, 26 )
+card_name = "Blue"
+card_color = "Blue"
 
 

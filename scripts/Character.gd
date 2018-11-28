@@ -3,6 +3,9 @@ extends KinematicBody2D
 var speed = 3
 var state = 'active'
 var replay_index = null
+#Inventory may want to be a dictionary
+var inventory = []
+
 
 var event_list = []
 

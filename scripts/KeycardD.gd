@@ -10,14 +10,18 @@ export(String) var card_color
 # var b = "textvar"
 
 func _ready():
-	pass
+	self.connect("body_entered", self, "_on_keycard_body_entered", [self])
 
-func _on_pressureplate_body_entered(body, origin):
+func _on_keycard_body_entered(body, origin):
 	if body.get_name() == "Character":
-		origin.pickup()
+		origin.pickup(body)
 
-func pickup():
-	pass
+func pickup(body):
+	#check to see if they keycard has already been picked up
+	self.hide()
+	#add keycard to inventory
+	body.inventory.append(self.card_name)
+	print("Picked up " + self.card_name)
 
 func reset_to_events(events):
 	if events == null:

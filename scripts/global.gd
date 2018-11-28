@@ -2,10 +2,19 @@ extends Node
 
 var Character = preload("res://scenes/Character.tscn")
 
-var time = 600
-var furthest_present = 600
+const UPP_DISTANCE = 600
+var time = UPP_DISTANCE
+var furthest_present = UPP_DISTANCE
 var player = null
 var player_ghost = null
+
+func reset_time():
+	time = UPP_DISTANCE
+	furthest_present = time
+	var slider = find_children()[0].get_parent().find_node("time_slider")
+	if slider:
+		print("found it")
+		slider.set_time(time)
 
 func _physics_process(delta):
 	time += 1
@@ -13,9 +22,6 @@ func _physics_process(delta):
 		furthest_present = time
 	if time % 100 == 0:
 		print(time)
-
-func reset_time():
-	time = 600
 
 func find_adjacent_events(t, event_list):
 	#Does a binary search
@@ -54,11 +60,18 @@ func find_adjacent_events(t, event_list):
 		else:
 			return [event_list[m], event_list[m]]
 
-func time_travel_back(delta, children):
+#returns the top-level nodes of the level scene
+func find_children():
+	# the tree will have two children. children[0] is global
+	# the most recently loaded top-level scene, children[len(children) - 1], *should* be the active level if we don't fuck up load order
+	return get_tree().get_root().get_children()[len(get_tree().get_root().get_children()) - 1].get_children()
+
+func time_travel(target_time, children):
+	if time == target_time:
+		return
 	print(children)
-	delta = int(delta)
 	var prevtime = time
-	time -= delta
+	time = target_time
 	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))
 	# if *returning* to the present
 	if time == furthest_present and prevtime != furthest_present:
@@ -87,7 +100,9 @@ func time_travel_back(delta, children):
 			player_ghost.rotation = player.rotation
 			
 			# delete the old player's camera so only one camera exists in the scene
-			player.find_node("Camera2D").queue_free()
+			var oldcam = player.find_node("Camera2D")
+			if oldcam:
+				oldcam.queue_free()
 			player.event_list.append(['depart', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
 		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}]]
 	for child in children:
@@ -95,7 +110,17 @@ func time_travel_back(delta, children):
 			var events = self.find_adjacent_events(time, child.event_list)
 			child.reset_to_events(events)
 
-func unpause():
-	player.start_replay(time)
+func jump(children):
+	player.state = 'replay'
 	player = player_ghost
 	player_ghost = null
+	
+	for child in children:
+		if 'finalize_jump' in child:
+			child.finalize_jump()
+
+func wipe_future(entity, t):
+	#remove all events after the specified time
+	var wipe_index = entity.event_list.find(global.find_adjacent_events(t, entity.event_list)[0]) + 1
+	while wipe_index < len(entity.event_list):
+        entity.event_list.remove(wipe_index)

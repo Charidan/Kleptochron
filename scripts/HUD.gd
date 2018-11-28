@@ -1,14 +1,11 @@
 extends MarginContainer
 
-# class member variables go here, for example:
 var button_jump
 var button_pause
 var button_play
 var time_slider
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	time_slider = find_node("time_slider")
 	button_jump = find_node("button_jump")
 	button_pause = find_node("button_pause")
@@ -20,9 +17,21 @@ func _ready():
 	button_play.focus_mode = Control.FOCUS_NONE
 	
 	time_slider.connect("pause", self, "pause")
-	button_jump.connect("pause", self, "pause")
+	button_jump.connect("pressed", self, "jump")
 	button_pause.connect("pressed", self, "pause")
-	button_play.connect("pressed", self, "unpause")
+	button_play.connect("pressed", self, "play")
+
+#return to present and unpause
+func play():
+	print("played")
+	global.time_travel(global.furthest_present, global.find_children())
+	unpause()
+
+#wipe futures and unpause
+func jump():
+	print("jump")
+	global.jump(global.find_children())
+	unpause()
 
 func pause():
 	print("paused")
@@ -32,11 +41,8 @@ func pause():
 	get_tree().paused = true
 
 func unpause():
-	print("played")
+	print("unpaused")
 	button_pause.disabled = false
 	button_play.disabled = true
 	button_pause.pressed = false
-	global.furthest_present = global.time
-	time_slider.value = 1
-	global.unpause()
 	get_tree().paused = false

@@ -90,8 +90,8 @@ func reset_to_events(events):
 		position = Vector2(lerp(position.x, late_event[2]['position'].x, time_ratio), lerp(position.y, late_event[2]['position'].y, time_ratio))
 		print(position)
 
-func start_replay(t):
-	state = 'replay'
-	var event = global.find_adjacent_events(t, event_list)[0]
-	if event:
-		replay_index = self.event_list.find(event)+1
+func finalize_jump(t):
+	if state == 'replay':
+		var event = global.find_adjacent_events(t, event_list)[0]
+		if event:
+			replay_index = self.event_list.find(event)+1

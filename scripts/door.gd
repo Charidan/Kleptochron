@@ -13,13 +13,7 @@ var event_list = []
 var LEFT_DOOR
 var RIGHT_DOOR
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	LEFT_DOOR = find_node("leftdoor")
 	RIGHT_DOOR = find_node("rightdoor")
 
@@ -71,7 +65,6 @@ func reset_to_events(events):
 	elif early_event[0] == 'close_begin':
 		move_towards(LEFT_DOOR, POS_LEFT_CLOSE, global.time - early_event[1])
 		move_towards(RIGHT_DOOR, POS_RIGHT_CLOSE, global.time - early_event[1])
-	#remove all events after the early event
-	var start_index = self.event_list.find(late_event)
-	for i in range(start_index, len(event_list)):
-		self.event_list.remove(i)
+
+func finalize_jump(t):
+	global.wipe_future(self, t)

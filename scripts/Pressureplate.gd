@@ -8,13 +8,7 @@ var event_list = []
 var sprite_on
 var sprite_off
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	sprite_on = find_node("sprite_on")
 	sprite_off = find_node("sprite_off")
 	
@@ -62,6 +56,6 @@ func reset_to_events(events):
 	elif early_event[0] == "plate_off":
 		sprite_on.hide()
 		sprite_off.show()
-	var start_index = self.event_list.find(early_event)+1
-	for i in range(start_index, len(event_list)):
-		self.event_list.remove(i)
+
+func finalize_jump(t):
+	global.wipe_future(self, t)

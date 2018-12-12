@@ -1,17 +1,29 @@
 extends Node
 
-var time = 600
-var furthest_present = 600
+var Character = preload("res://scenes/Character.tscn")
+
+const UPP_DISTANCE = 600
+var time = UPP_DISTANCE
+var furthest_present = UPP_DISTANCE
+var current_present = furthest_present
+var player = null
+var player_ghost = null
+
+func reset_time():
+	time = UPP_DISTANCE
+	furthest_present = time
+	var slider = find_children()[0].get_parent().find_node("time_slider")
+	if slider:
+		print("found it")
+		slider.set_time(time)
 
 func _physics_process(delta):
 	time += 1
+	current_present = time
 	if time > furthest_present:
 		furthest_present = time
 	if time % 100 == 0:
 		print(time)
-
-func reset_time():
-	time = 600
 
 func find_adjacent_events(t, event_list):
 	#Does a binary search
@@ -50,13 +62,74 @@ func find_adjacent_events(t, event_list):
 		else:
 			return [event_list[m], event_list[m]]
 
-func time_travel_back(delta, children):
+#returns the top-level nodes of the level scene
+func find_children():
+	# the tree will have two children. children[0] is global
+	# the most recently loaded top-level scene, children[len(children) - 1], *should* be the active level if we don't fuck up load order
+	return get_tree().get_root().get_children()[len(get_tree().get_root().get_children()) - 1].get_children()
+
+func time_travel(target_time, children):
+	if time == target_time:
+		return
 	print(children)
-	delta = int(delta)
 	var prevtime = time
-	time -= delta
+	time = target_time
 	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))
+	# if *returning* to the present
+	if time == current_present and prevtime != current_present:
+		if player_ghost:
+			# give the old player a camera back
+			var cam = player_ghost.find_node("Camera2D")
+			player_ghost.remove_child(cam)
+			player.add_child(cam)
+			
+			# delete the ghost
+			player_ghost.queue_free()
+			player_ghost = null
+			
+			# return control to the player
+			player.state = 'active'
+			player.event_list.pop_back()
+	else:
+		if not player_ghost:
+			# set previous player to replay state preemptively
+			player.state = 'replay'
+			
+			# spawn ghost player to sit in the present, add it to the node tree
+			player_ghost = Character.instance()
+			player.get_parent().add_child(player_ghost)
+			player_ghost.position = player.position
+			player_ghost.rotation = player.rotation
+			
+			# delete the old player's camera so only one camera exists in the scene
+			var oldcam = player.find_node("Camera2D")
+			if oldcam:
+				oldcam.queue_free()
+			
+			# add a temporal departure to the player
+			player.event_list.append(['depart', prevtime, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
+		# override the ghost's event list so its only event is its arrival
+		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}]]
 	for child in children:
 		if 'event_list' in child:
 			var events = self.find_adjacent_events(time, child.event_list)
 			child.reset_to_events(events)
+
+func jump(children):
+	player.state = 'replay'
+	player = player_ghost
+	player_ghost = null
+	
+	current_present = time
+	
+	for child in children:
+		if child.has_method('finalize_jump'):
+			print("finalizing for object " + str(child))
+			child.finalize_jump(time)
+	print('jump done')
+
+func wipe_future(entity, t):
+	#remove all events after the specified time
+	var wipe_index = entity.event_list.find(global.find_adjacent_events(t, entity.event_list)[0]) + 1
+	while wipe_index < len(entity.event_list):
+        entity.event_list.remove(wipe_index)

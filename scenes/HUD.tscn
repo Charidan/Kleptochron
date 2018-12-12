@@ -16,7 +16,7 @@
 [ext_resource path="res://assets/time_play_hover.png" type="Texture" id=14]
 [ext_resource path="res://assets/time_play_disabled.png" type="Texture" id=15]
 [ext_resource path="res://assets/time_play_focused.png" type="Texture" id=16]
-[ext_resource path="res://scripts/time_slider.gd" type="Script" id=17]
+[ext_resource path="res://scripts/Time_Slider.gd" type="Script" id=17]
 
 [node name="HUD" type="MarginContainer" index="0"]
 

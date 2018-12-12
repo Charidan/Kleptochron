@@ -13,15 +13,12 @@ var event_list = []
 var LEFT_DOOR
 var RIGHT_DOOR
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	LEFT_DOOR = find_node("leftdoor")
 	RIGHT_DOOR = find_node("rightdoor")
+	
+	# seed an initial event
+	event_list.append(['close_end', 0, {'left_position' : self.POS_LEFT_CLOSE, 'right_position' : self.POS_RIGHT_CLOSE}])
 
 func _physics_process(delta):
 	if moving:
@@ -71,3 +68,6 @@ func reset_to_events(events):
 	elif early_event[0] == 'close_begin':
 		move_towards(LEFT_DOOR, POS_LEFT_CLOSE, global.time - early_event[1])
 		move_towards(RIGHT_DOOR, POS_RIGHT_CLOSE, global.time - early_event[1])
+
+func finalize_jump(t):
+	global.wipe_future(self, t)

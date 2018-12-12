@@ -20,15 +20,11 @@ func _ready():
 	event_list.append(["spawn", 0, {"position": position}])
 
 func _on_keycard_body_entered(body, origin):
-	if sprite.is_visible() && body.get_name() == "Character":
-		origin.pickup(body)
-
-func pickup(body):
-	self.hide()
-	#add keycard to inventory
-	body.inventory.append(self.card_name)
-	event_list.append(["pickup", global.time, {"position": position}])
-	print("Picked up " + self.card_name)
+	if self.is_visible() && body.get_name() == "Character":
+		body.pickup(origin)
+		self.hide()
+		event_list.append(["pickup", global.time, {"position": position}])
+		print("Picked up " + self.card_name)
 
 func reset_to_events(events):
 	if events == null:

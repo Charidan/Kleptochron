@@ -40,7 +40,7 @@ func _physics_process(delta):
 		#update position AFTER storing the event (if necessary)
 		position += velocity
 	elif self.state == 'replay':
-		if replay_index > len(event_list):
+		if replay_index >= len(event_list):
 			return
 		var event = event_list[replay_index]
 		if event[0] == 'motion':
@@ -73,6 +73,10 @@ func _physics_process(delta):
 			replay_index += 1
 			self.show()
 
+func pickup(item):
+	inventory.append(item.card_name)
+	event_list.append(["pickup", global.time, {'position': position, 'item': item.card_name, 'velocity': Vector2(0,0)}])
+
 func reset_to_events(events):
 	if events == null:
 		return
@@ -100,3 +104,10 @@ func finalize_jump(t):
 		var event = global.find_adjacent_events(t, event_list)[0]
 		if event:
 			replay_index = self.event_list.find(event)+1
+			var cursor = replay_index + 1
+			while cursor < len(event_list):
+				var item_event = event_list[cursor]
+				if item_event[0] == 'pickup':
+					inventory.remove(inventory.find(item_event[2]['item']))
+				else:
+					cursor += 1

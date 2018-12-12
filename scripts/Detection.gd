@@ -3,9 +3,6 @@ extends Area2D
 signal door_open(signal_value)
 signal door_close(signal_value)
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 var door
 
 

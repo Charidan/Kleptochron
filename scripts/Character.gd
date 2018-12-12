@@ -40,6 +40,8 @@ func _physics_process(delta):
 		#update position AFTER storing the event (if necessary)
 		position += velocity
 	elif self.state == 'replay':
+		if replay_index > len(event_list):
+			return
 		var event = event_list[replay_index]
 		if event[0] == 'motion':
 			# set velocity to go to (not past) next waypoint
@@ -93,8 +95,8 @@ func reset_to_events(events):
 		position = Vector2(lerp(position.x, late_event[2]['position'].x, time_ratio), lerp(position.y, late_event[2]['position'].y, time_ratio))
 		print(position)
 
-func start_replay(t):
-	state = 'replay'
-	var event = global.find_adjacent_events(t, event_list)[0]
-	if event:
-		replay_index = self.event_list.find(event)+1
+func finalize_jump(t):
+	if state == 'replay':
+		var event = global.find_adjacent_events(t, event_list)[0]
+		if event:
+			replay_index = self.event_list.find(event)+1

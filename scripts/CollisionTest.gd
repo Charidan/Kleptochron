@@ -1,13 +1,8 @@
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
 func _ready():
 	global.reset_time()
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+	
 	var pp1 = find_node("PP_Door1")
 	var pp2 = find_node("PP_Door2")
 	var timeplate = find_node("PP_Time")
@@ -16,6 +11,8 @@ func _ready():
 	var tpp1 = find_node("PP_DoorT1")
 	var tpp2 = find_node("PP_DoorT2")
 	
+	#TODO consider a variant architecture with a "network" entity that rebroadcasts signals between linked plates/doors/etc so you don't have to pair them all
+	# maybe have it automatically find its tree-children and link them to itself so you can set up the signal links with the editor tree
 	connect_plate_to_door(pp1, door)
 	connect_plate_to_door(pp2, door)
 	connect_plates(pp1, pp2)
@@ -38,4 +35,4 @@ func connect_plates(a, b):
 
 func travel_back(signal_value, delta=600):
 	if signal_value == 'time':
-		global.time_travel_back(delta, self.get_children())
+		global.time_travel(global.furthest_present - delta, self.get_children())

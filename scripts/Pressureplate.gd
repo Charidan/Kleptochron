@@ -27,21 +27,21 @@ func _on_pressureplate_body_entered(body, origin):
 
 func toggle():
 	if sprite_on.is_visible():
-		emit_signal("plate_off", plate_name)
+		emit_signal("plate_off")
+		print("plate_off")
 	else:
-		emit_signal("plate_on", plate_name)
+		emit_signal("plate_on")
+		print("plate_on")
 
-func set_on(signal_value):
+func set_on():
 	event_list.append(['plate_on', global.time, {'state' : is_on()}])
-	if signal_value == plate_name:
-		sprite_on.show()
-		sprite_off.hide()
+	sprite_on.show()
+	sprite_off.hide()
 
-func set_off(signal_value):
+func set_off():
 	event_list.append(['plate_off', global.time, {'state' : is_on()}])
-	if signal_value == plate_name:
-		sprite_on.hide()
-		sprite_off.show()
+	sprite_on.hide()
+	sprite_off.show()
 	
 func is_on():
 	return sprite_on.is_visible()

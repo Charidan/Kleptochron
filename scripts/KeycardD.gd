@@ -25,7 +25,7 @@ func _on_keycard_body_entered(body, origin):
 		origin.pickup(body)
 
 func pickup(body):
-	#check to see if they keycard has already been picked up
+	#TODO check to see if they keycard has already been picked up
 	self.hide()
 	#add keycard to inventory
 	body.inventory.append(self.card_name)

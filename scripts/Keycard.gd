@@ -6,10 +6,6 @@ var event_list = []
 export(String) var card_color
 var sprite
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
-
 func _ready():
 	self.connect("body_entered", self, "_on_keycard_body_entered", [self])
 	sprite = find_node("Keycard_Sprite")
@@ -19,24 +15,26 @@ func _ready():
 		sprite.modulate = Color(0, 1, 0)
 	elif card_color == "red":
 		sprite.modulate = Color(1, 0, 0)
+	
+	#seed initial event
+	event_list.append(["spawn", 0, {"position": position}])
 
 func _on_keycard_body_entered(body, origin):
-	if body.get_name() == "Character":
-		origin.pickup(body)
-
-func pickup(body):
-	#TODO check to see if they keycard has already been picked up
-	self.hide()
-	#add keycard to inventory
-	body.inventory.append(self.card_name)
-	print("Picked up " + self.card_name)
+	if self.is_visible() && body.get_filename() == global.CHARACTER_FILEPATH:
+		body.pickup(origin)
+		self.hide()
+		event_list.append(["pickup", global.time, {"position": position}])
+		print("Picked up " + self.card_name)
 
 func reset_to_events(events):
 	if events == null:
 		return
 	var early_event = events[0]
-	#var late_event = null
-	#if events[1]:
-	#	late_event = events[1][0]
+	if early_event[0] == "spawn":
+		self.show()
+	if early_event[0] == "pickup":
+		self.hide()
 	print(early_event)
-	
+
+func finalize_jump(t):
+	global.wipe_future(self, t)

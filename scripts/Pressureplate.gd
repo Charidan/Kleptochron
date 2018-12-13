@@ -22,7 +22,7 @@ func _ready():
 	event_list.append([event_type_string, 0, {'state' : is_on()}])
 
 func _on_pressureplate_body_entered(body, origin):
-	if body.get_name() == "Character":
+	if body.get_filename() == global.CHARACTER_FILEPATH:
 		origin.toggle()
 
 func toggle():

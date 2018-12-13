@@ -20,7 +20,7 @@ func _ready():
 	event_list.append(["spawn", 0, {"position": position}])
 
 func _on_keycard_body_entered(body, origin):
-	if self.is_visible() && body.get_name() == "Character":
+	if self.is_visible() && body.get_filename() == global.CHARACTER_FILEPATH:
 		body.pickup(origin)
 		self.hide()
 		event_list.append(["pickup", global.time, {"position": position}])

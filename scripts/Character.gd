@@ -5,12 +5,12 @@ var state = 'active'
 var replay_index = null
 #Inventory may want to be a dictionary
 var inventory = []
-
+var old_shape = null
 
 var event_list = []
 
 func _ready():
-	event_list.append(['motion', global.time, {'position' : self.position, 'velocity' : Vector2(0,0), 'rotation' : Vector2(0,1)}])
+	event_list.append(['wait', 0, {'position' : self.position, 'velocity' : Vector2(0,0), 'rotation' : rotation}])
 	if global.player == null:
 		global.player = self
 
@@ -43,6 +43,10 @@ func _physics_process(delta):
 		if replay_index >= len(event_list):
 			return
 		var event = event_list[replay_index]
+		if event[0] == 'pickup':
+			replay_index += 1
+			print(name)
+			return _physics_process(delta)
 		if event[0] == 'motion':
 			# set velocity to go to (not past) next waypoint
 			var target_pos = event_list[replay_index + 1][2]['position']
@@ -58,37 +62,50 @@ func _physics_process(delta):
 			position += velocity
 			#check if we reached the target
 			if (position - target_pos).length() < speed / 10.0:
-				print("replay player arrived at " + str(target_pos))
+				#print("replay player arrived at " + str(target_pos))
 				replay_index += 1
-				print("new event = " + str(event_list[replay_index]) + " with target = " + (str(event_list[replay_index + 1][2]['position']) if replay_index + 1 < len(event_list) else "null"))
+				#print("new event = " + str(event_list[replay_index]) + " with target = " + (str(event_list[replay_index + 1][2]['position']) if replay_index + 1 < len(event_list) else "null"))
 		if event[0] == 'wait':
 			# TODO consider making this a check of relative number of ticks waited instead of matching the global timer
 			if event[1] <= global.time:
 				replay_index += 1
 		if event[0] == 'depart':
-			self.hide()
+			self.disable()
 		if event[0] == 'arrive':
 			position = event[2]['position']
 			rotation = event[2]['rotation']
 			replay_index += 1
-			self.show()
+			self.enable()
+
+func disable():
+	collision_mask = 0
+	collision_layer = 0
+	hide()
+	
+func enable():
+	collision_mask = 1
+	collision_layer = 1
+	show()
 
 func pickup(item):
 	inventory.append(item.card_name)
-	event_list.append(["pickup", global.time, {'position': position, 'item': item.card_name, 'velocity': Vector2(0,0)}])
+	event_list.append(["pickup", global.time, {'position': position, 'item': item.card_name, 'rotation': rotation, 'velocity': Vector2(0,0)}])
 
 func reset_to_events(events):
+	if state == 'active':
+		return
 	if events == null:
+		self.disable()
 		return
 	var early_event = events[0]
 	print('player early_event: ' + str(early_event))
 	if early_event[0] == 'arrive' and early_event[1] > global.time:
-		self.hide()
+		self.disable()
 		return
 	if early_event[0] == 'depart' and early_event[1] < global.time:
-		self.hide()
+		self.disable()
 		return
-	self.show()
+	self.enable()
 	self.position = early_event[2]['position']
 	if events[1] and early_event[1] != global.time:
 		var late_event = events[1]
@@ -104,10 +121,15 @@ func finalize_jump(t):
 		var event = global.find_adjacent_events(t, event_list)[0]
 		if event:
 			replay_index = self.event_list.find(event)+1
-			var cursor = replay_index + 1
-			while cursor < len(event_list):
+			var cursor = 0
+			while cursor <= replay_index && cursor < len(self.event_list):
 				var item_event = event_list[cursor]
 				if item_event[0] == 'pickup':
+					inventory.append(item_event[2]['item'])
+				if item_event[0] == 'drop':
 					inventory.remove(inventory.find(item_event[2]['item']))
-				else:
-					cursor += 1
+				cursor += 1
+		event_list.append(['depart', global.time, {'position' : position, 'rotation' : rotation, 'velocity' : Vector2(0,0)}])
+	elif state == 'active':
+		# override event_list with our arrival
+		event_list = [['arrive', global.time, {'position' : position, 'rotation' : rotation, 'velocity' : Vector2(0,0)}]]

@@ -1,13 +1,14 @@
 extends Node
 
-var Character = preload("res://scenes/Character.tscn")
+const CHARACTER_FILEPATH = "res://scenes/Character.tscn"
+var Character = preload(CHARACTER_FILEPATH)
 
 const UPP_DISTANCE = 600
 var time = UPP_DISTANCE
 var furthest_present = UPP_DISTANCE
 var current_present = furthest_present
 var player = null
-var player_ghost = null
+var player_echo = null
 
 func reset_time():
 	time = UPP_DISTANCE
@@ -38,6 +39,8 @@ func find_adjacent_events(t, event_list):
 			return [event_list[0], null]
 		else:
 			return null
+	if event_list[0][1] > t:
+		return null
 	#search for an event on the specified tick
 	while true:
 		#if end[1] is less than start
@@ -75,50 +78,31 @@ func time_travel(target_time, children):
 	var prevtime = time
 	time = target_time
 	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))
+	
 	# if *returning* to the present
 	if time == current_present and prevtime != current_present:
-		if player_ghost:
-			# give the old player a camera back
-			var cam = player_ghost.find_node("Camera2D")
-			player_ghost.remove_child(cam)
-			player.add_child(cam)
-			
-			# delete the ghost
-			player_ghost.queue_free()
-			player_ghost = null
-			
-			# return control to the player
-			player.state = 'active'
-			player.event_list.pop_back()
+		if player_echo:
+			player_echo.queue_free()
+			player_echo = null
 	else:
-		if not player_ghost:
-			# set previous player to replay state preemptively
-			player.state = 'replay'
+		if not player_echo:			
+			# spawn echo player to travel to the past, add it to the node tree
+			player_echo = Character.instance()
+			player.get_parent().add_child(player_echo)
+			player_echo.state = 'replay'
+			player_echo.event_list = [] + player.event_list
+			children.append(player_echo)
 			
-			# spawn ghost player to sit in the present, add it to the node tree
-			player_ghost = Character.instance()
-			player.get_parent().add_child(player_ghost)
-			player_ghost.position = player.position
-			player_ghost.rotation = player.rotation
-			
-			# delete the old player's camera so only one camera exists in the scene
-			var oldcam = player.find_node("Camera2D")
-			if oldcam:
-				oldcam.queue_free()
-			
-			# add a temporal departure to the player
-			player.event_list.append(['depart', prevtime, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}])
-		# override the ghost's event list so its only event is its arrival
-		player_ghost.event_list = [['arrive', time, {'position' : player_ghost.position, 'rotation' : player_ghost.rotation, 'velocity' : Vector2(0,0)}]]
+			# delete the echo's camera so only one camera exists in the scene
+			player_echo.find_node("Camera2D").queue_free()
+	
 	for child in children:
 		if 'event_list' in child:
 			var events = self.find_adjacent_events(time, child.event_list)
 			child.reset_to_events(events)
 
 func jump(children):
-	player.state = 'replay'
-	player = player_ghost
-	player_ghost = null
+	player_echo = null
 	
 	current_present = time
 	

@@ -5,6 +5,7 @@ export(String) var KEYCARD = "None"
 var open = false
 var moving = false
 export(int) var SPEED
+export(String) var DOOR_TYPE = "keycard"
 const POS_LEFT_OPEN = Vector2(-25, 0)
 const POS_LEFT_CLOSE = Vector2(-5, 0)
 const POS_RIGHT_OPEN = Vector2(25, 0)

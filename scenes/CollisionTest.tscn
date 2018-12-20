@@ -50,12 +50,14 @@ plate_name = "time"
 
 position = Vector2( 475.227, 325 )
 SPEED = 15
+DOOR_TYPE = "pressure"
 
 [node name="TimeDoor" parent="." index="7" instance=ExtResource( 4 )]
 
 position = Vector2( -225, 125 )
 rotation = 1.5708
 SPEED = 15
+DOOR_TYPE = "pressure"
 
 [node name="TileMap" type="TileMap" parent="." index="8"]
 

@@ -22,6 +22,7 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 KEYCARD = "None"
 SPEED = null
+DOOR_TYPE = "keycard"
 
 [node name="leftdoor" type="CollisionPolygon2D" parent="." index="0"]
 

@@ -17,22 +17,22 @@ func _ready():
 		sprite.modulate = Color(1, 0, 0)
 	
 	#seed initial event
-	event_list.append(["spawn", 0, {"position": position}])
+	event_list.append({'type': "spawn", 'time': 0, "position": position})
 
 func _on_keycard_body_entered(body, origin):
 	if self.is_visible() && body.get_filename() == global.CHARACTER_FILEPATH:
 		body.pickup(origin)
 		self.hide()
-		event_list.append(["pickup", global.time, {"position": position}])
+		event_list.append({'type': "pickup", 'time': global.time, "position": position})
 		print("Picked up " + self.card_name)
 
 func reset_to_events(events):
 	if events == null:
 		return
 	var early_event = events[0]
-	if early_event[0] == "spawn":
+	if early_event['type'] == "spawn":
 		self.show()
-	if early_event[0] == "pickup":
+	if early_event['type'] == "pickup":
 		self.hide()
 	print(early_event)
 

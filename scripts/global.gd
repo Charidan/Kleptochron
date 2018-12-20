@@ -35,11 +35,11 @@ func find_adjacent_events(t, event_list):
 		return null
 	#if there is only one element, return it iff it is in the past
 	if len(event_list) == 1:
-		if event_list[0][1] <= t:
+		if event_list[0]['time'] <= t:
 			return [event_list[0], null]
 		else:
 			return null
-	if event_list[0][1] > t:
+	if event_list[0]['time'] > t:
 		return null
 	#search for an event on the specified tick
 	while true:
@@ -48,7 +48,7 @@ func find_adjacent_events(t, event_list):
 		#else start[1] is greater than time, and we want [(start - 1), start]
 		#BUT in small arrays (or always for start) we might be going off the end, so check for bounds
 		if end < start:
-			if event_list[end][1] < t:
+			if event_list[end]['time'] < t:
 				if end + 1 < len(event_list):
 					return [event_list[end], event_list[end + 1]]
 				else:
@@ -58,9 +58,9 @@ func find_adjacent_events(t, event_list):
 			else:
 				return [event_list[start], null]
 		var m = int((start + end)/2)
-		if event_list[m][1] < t:
+		if event_list[m]['time'] < t:
 			start = m + 1
-		elif event_list[m][1] > t:
+		elif event_list[m]['time'] > t:
 			end = m - 1
 		else:
 			return [event_list[m], event_list[m]]
@@ -82,7 +82,8 @@ func time_travel(target_time, children):
 	# if *returning* to the present
 	if time == current_present and prevtime != current_present:
 		if player_echo:
-			player_echo.queue_free()
+			children.erase(player_echo)
+			player_echo.free()
 			player_echo = null
 	else:
 		if not player_echo:			

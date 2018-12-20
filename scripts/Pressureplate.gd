@@ -19,7 +19,7 @@ func _ready():
 	
 	# seed an initial event
 	var event_type_string = 'plate_on' if is_on() else 'plate_off'
-	event_list.append([event_type_string, 0, {'state' : is_on()}])
+	event_list.append({'type': event_type_string, 'time': 0, 'state' : is_on()})
 
 func _on_pressureplate_body_entered(body, origin):
 	if body.get_filename() == global.CHARACTER_FILEPATH:
@@ -34,12 +34,12 @@ func toggle():
 		print("plate_on")
 
 func set_on():
-	event_list.append(['plate_on', global.time, {'state' : is_on()}])
+	event_list.append({'type': 'plate_on', 'time': global.time, 'state' : is_on()})
 	sprite_on.show()
 	sprite_off.hide()
 
 func set_off():
-	event_list.append(['plate_off', global.time, {'state' : is_on()}])
+	event_list.append({'type': 'plate_off', 'time': global.time, 'state' : is_on()})
 	sprite_on.hide()
 	sprite_off.show()
 	
@@ -50,14 +50,11 @@ func reset_to_events(events):
 	if events == null:
 		return
 	var early_event = events[0]
-	#var late_event = null
-	#if events[1]:
-	#	late_event = events[1][0]
 	print(early_event)
-	if early_event[0] == "plate_on":
+	if early_event['type'] == "plate_on":
 		sprite_on.show()
 		sprite_off.hide()
-	elif early_event[0] == "plate_off":
+	elif early_event['type'] == "plate_off":
 		sprite_on.hide()
 		sprite_off.show()
 

@@ -5,7 +5,6 @@ func _ready():
 	
 	var pp1 = find_node("PP_Door1")
 	var pp2 = find_node("PP_Door2")
-	var timeplate = find_node("PP_Time")
 	var door = find_node("Door")
 	var tdoor = find_node("TimeDoor")
 	var tpp1 = find_node("PP_DoorT1")
@@ -19,8 +18,6 @@ func _ready():
 	connect_plate_to_door(tpp1, tdoor)
 	connect_plate_to_door(tpp2, tdoor)
 	connect_plates(tpp1, tpp2)
-	
-	timeplate.connect('plate_on', self, 'travel_back', [300])
 
 func connect_plate_to_door(plate, door):
 	plate.connect('plate_on', door, "open")
@@ -32,7 +29,3 @@ func connect_plates(a, b):
 	
 	b.connect('plate_on', a, "set_on")
 	b.connect('plate_off', a, "set_off")
-
-func travel_back(signal_value, delta=600):
-	if signal_value == 'time':
-		global.time_travel(global.furthest_present - delta, self.get_children())

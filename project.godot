@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="Kleptochron"
-run/main_scene="res://scenes/CollisionTest.tscn"
+run/main_scene="res://scenes/SampleLevel.tscn"
 config/icon="res://icon.png"
 
 [autoload]

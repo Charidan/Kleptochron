@@ -26,7 +26,7 @@ func _on_keycard_body_entered(body, origin):
 		event_list.append({'type': "pickup", 'time': global.time, "position": position})
 		print("Picked up " + self.card_name)
 
-func reset_to_events(events):
+func reset_to_events(events, prevtime):
 	if events == null:
 		return
 	var early_event = events[0]

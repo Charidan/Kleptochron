@@ -53,7 +53,7 @@ func close():
 	open = false
 	event_list.append({'type': 'close_begin', 'time': global.time, 'left_position' : LEFT_DOOR.position, 'right_position' : RIGHT_DOOR.position})
 
-func reset_to_events(events):
+func reset_to_events(events, prevtime):
 	if events == null:
 		return
 	var early_event = events[0]

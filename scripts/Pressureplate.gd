@@ -46,7 +46,7 @@ func set_off():
 func is_on():
 	return sprite_on.is_visible()
 
-func reset_to_events(events):
+func reset_to_events(events, prevtime):
 	if events == null:
 		return
 	var early_event = events[0]

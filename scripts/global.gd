@@ -2,6 +2,7 @@ extends Node
 
 const CHARACTER_FILEPATH = "res://scenes/Character.tscn"
 var Character = preload(CHARACTER_FILEPATH)
+var gg_dialog = preload("res://scenes/SpottedDialog.tscn")
 
 const UPP_DISTANCE = 600
 var time = UPP_DISTANCE
@@ -10,10 +11,16 @@ var current_present = furthest_present
 var player = null
 var player_echo = null
 
+func reset():
+	player = null
+	player_echo = null
+	reset_time()
+
 func reset_time():
 	time = UPP_DISTANCE
 	furthest_present = time
-	var slider = find_children()[0].get_parent().find_node("time_slider")
+	#TODO why are you looking for the slider in the wrong place
+	var slider = get_tree().get_root().find_node("time_slider")
 	if slider:
 		print("found it")
 		slider.set_time(time)
@@ -100,7 +107,7 @@ func time_travel(target_time, children):
 	for child in children:
 		if 'event_list' in child:
 			var events = self.find_adjacent_events(time, child.event_list)
-			child.reset_to_events(events)
+			child.reset_to_events(events, prevtime)
 
 func jump(children):
 	player_echo = null

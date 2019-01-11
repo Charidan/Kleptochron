@@ -16,10 +16,10 @@ func _ready():
 	self.connect('door_close', door, "close")
 
 func _on_detection_body_entered(body, origin):
-	if body.get_name() == "Character" and not door.open:
+	if body.get_filename() == global.CHARACTER_FILEPATH and not door.open:
 		if body.inventory.find(door.KEYCARD) != -1:
 			emit_signal("door_open")
 
 func _on_detection_body_exited(body, origin):
-	if body.get_name() == "Character" and door.open and door.DOOR_TYPE == 'keycard':
+	if body.get_filename() == global.CHARACTER_FILEPATH and door.open and door.DOOR_TYPE == 'keycard':
 		emit_signal("door_close")

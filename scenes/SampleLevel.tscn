@@ -1,0 +1,293 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://tilesets/Interior.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/Door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Keycard.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Guard.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=6]
+
+[node name="Node2D" type="Node2D" index="0"]
+
+[node name="TileMap" type="TileMap" parent="." index="0"]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 50, 50 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( -1507329, 0, 0, -1572864, 0, 0, -1572863, 0, 0, -1572862, 0, 0, -1572861, 0, 0, -1572860, 0, 0, -1572859, 0, 0, -1572858, 0, 0, -1441793, 0, 0, -1507328, 1, 0, -1507327, 1, 0, -1507326, 1, 0, -1507325, 1, 0, -1507324, 1, 0, -1507323, 1, 0, -1507322, 0, 0, -1376257, 0, 0, -1441792, 1, 0, -1441791, 1, 0, -1441790, 1, 0, -1441789, 1, 0, -1441788, 1, 0, -1441787, 1, 0, -1441786, 0, 0, -1310721, 0, 0, -1376256, 1, 0, -1376255, 1, 0, -1376254, 0, 0, -1376253, 1, 0, -1376252, 0, 0, -1376251, 0, 0, -1376250, 0, 0, -1376249, 0, 0, -1376248, 0, 0, -1245185, 0, 0, -1310720, 1, 0, -1310719, 1, 0, -1310718, 0, 0, -1310717, 1, 0, -1310716, 1, 0, -1310715, 1, 0, -1310714, 1, 0, -1310713, 1, 0, -1310712, 0, 0, -1179649, 0, 0, -1245184, 1, 0, -1245183, 1, 0, -1245182, 0, 0, -1245181, 1, 0, -1245180, 1, 0, -1245179, 0, 0, -1245178, 1, 0, -1245177, 1, 0, -1245176, 0, 0, -1114113, 0, 0, -1179648, 1, 0, -1179647, 1, 0, -1179646, 0, 0, -1179645, 1, 0, -1179644, 1, 0, -1179643, 0, 0, -1179642, 1, 0, -1179641, 1, 0, -1179640, 0, 0, -1048577, 0, 0, -1114112, 0, 0, -1114111, 0, 0, -1114110, 0, 0, -1114109, 1, 0, -1114108, 1, 0, -1114107, 0, 0, -1114106, 1, 0, -1114105, 1, 0, -1114104, 0, 0, -1048574, 0, 0, -1048573, 1, 0, -1048572, 1, 0, -1048571, 0, 0, -1048570, 1, 0, -1048569, 1, 0, -1048568, 0, 0, -983038, 0, 0, -983037, 1, 0, -983036, 1, 0, -983035, 0, 0, -983034, 1, 0, -983033, 1, 0, -983032, 0, 0, -917502, 0, 0, -917501, 1, 0, -917500, 1, 0, -917499, 0, 0, -917498, 1, 0, -917497, 1, 0, -917496, 0, 0, -851966, 0, 0, -851965, 1, 0, -851964, 1, 0, -851963, 0, 0, -851962, 1, 0, -851961, 1, 0, -851960, 0, 0, -720909, 0, 0, -720908, 0, 0, -720907, 0, 0, -720906, 0, 0, -720905, 0, 0, -720904, 0, 0, -720903, 0, 0, -720902, 0, 0, -720901, 0, 0, -720900, 0, 0, -720899, 0, 0, -786430, 0, 0, -786429, 1, 0, -786428, 1, 0, -786427, 0, 0, -786426, 1, 0, -786425, 1, 0, -786424, 0, 0, -655373, 0, 0, -655372, 1, 0, -655371, 1, 0, -655370, 1, 0, -655369, 1, 0, -655368, 1, 0, -655367, 1, 0, -655366, 1, 0, -655365, 1, 0, -655364, 1, 0, -655363, 0, 0, -720894, 0, 0, -720893, 1, 0, -720892, 1, 0, -720891, 0, 0, -720890, 1, 0, -720889, 1, 0, -720888, 0, 0, -589837, 0, 0, -589836, 1, 0, -589835, 1, 0, -589834, 1, 0, -589833, 1, 0, -589832, 1, 0, -589831, 1, 0, -589830, 1, 0, -589829, 1, 0, -589828, 1, 0, -589827, 0, 0, -589826, 0, 0, -589825, 0, 0, -655360, 0, 0, -655359, 0, 0, -655358, 0, 0, -655357, 1, 0, -655356, 1, 0, -655355, 0, 0, -655354, 1, 0, -655353, 1, 0, -655352, 0, 0, -524301, 0, 0, -524300, 0, 0, -524299, 0, 0, -524298, 0, 0, -524297, 0, 0, -524296, 0, 0, -524295, 0, 0, -524294, 0, 0, -524293, 1, 0, -524292, 1, 0, -524291, 0, 0, -524290, 1, 0, -524289, 1, 0, -589824, 1, 0, -589823, 1, 0, -589822, 0, 0, -589821, 1, 0, -589820, 1, 0, -589819, 0, 0, -589818, 1, 0, -589817, 1, 0, -589816, 0, 0, -458758, 0, 0, -458757, 1, 0, -458756, 1, 0, -458755, 0, 0, -458754, 1, 0, -458753, 1, 0, -524288, 1, 0, -524287, 1, 0, -524286, 1, 0, -524285, 1, 0, -524284, 1, 0, -524283, 0, 0, -524282, 1, 0, -524281, 1, 0, -524280, 0, 0, -393222, 0, 0, -393221, 1, 0, -393220, 1, 0, -393219, 0, 0, -393218, 1, 0, -393217, 1, 0, -458752, 1, 0, -458751, 1, 0, -458750, 0, 0, -458749, 1, 0, -458748, 1, 0, -458747, 0, 0, -458746, 1, 0, -458745, 1, 0, -458744, 0, 0, -327686, 0, 0, -327685, 1, 0, -327684, 1, 0, -327683, 0, 0, -327682, 0, 0, -327681, 0, 0, -393216, 0, 0, -393215, 0, 0, -393214, 0, 0, -393213, 0, 0, -393212, 0, 0, -393211, 0, 0, -393210, 1, 0, -393209, 1, 0, -393208, 0, 0, -262150, 0, 0, -262149, 1, 0, -262148, 1, 0, -262147, 1, 0, -262146, 1, 0, -262145, 1, 0, -327680, 1, 0, -327679, 1, 0, -327678, 1, 0, -327677, 1, 0, -327676, 1, 0, -327675, 1, 0, -327674, 1, 0, -327673, 1, 0, -327672, 0, 0, -196614, 0, 0, -196613, 1, 0, -196612, 1, 0, -196611, 1, 0, -196610, 1, 0, -196609, 1, 0, -262144, 1, 0, -262143, 1, 0, -262142, 1, 0, -262141, 1, 0, -262140, 0, 0, -262139, 1, 0, -262138, 1, 0, -262137, 1, 0, -262136, 0, 0, -131078, 0, 0, -131077, 1, 0, -131076, 1, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 1, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -65542, 0, 0, -65541, 1, 0, -65540, 1, 0, -65539, 0, 0, -65538, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -131070, 1, 0, -131069, 0, 0, -6, 0, 0, -5, 1, 0, -4, 1, 0, -3, 0, 0, -2, 1, 0, -1, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 1, 0, 65532, 1, 0, 65533, 0, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 0, 0, 131063, 0, 0, 131064, 1, 0, 131065, 1, 0, 131066, 1, 0, 131067, 1, 0, 131068, 1, 0, 131069, 0, 0, 131070, 1, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 0, 0, 196599, 0, 0, 196600, 1, 0, 196601, 1, 0, 196602, 1, 0, 196603, 1, 0, 196604, 1, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 1, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 262135, 0, 0, 262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 1, 0, 196608, 1, 0, 196609, 1, 0, 196610, 0, 0, 327678, 0, 0, 327679, 1, 0, 262144, 1, 0, 262145, 1, 0, 262146, 0, 0, 393214, 0, 0, 393215, 1, 0, 327680, 1, 0, 327681, 1, 0, 327682, 0, 0, 458750, 0, 0, 458751, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0 )
+_sections_unfolded = [ "Cell" ]
+
+[node name="door_start" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 25.0879, -125.006 )
+KEYCARD = "blue"
+SPEED = 20
+
+[node name="door_card" parent="." index="2" instance=ExtResource( 2 )]
+
+position = Vector2( 224.985, -224.936 )
+rotation = 1.5708
+KEYCARD = "red"
+SPEED = 10
+
+[node name="door_guard_hall" parent="." index="3" instance=ExtResource( 2 )]
+
+position = Vector2( 275.042, -975.001 )
+rotation = 1.5708
+SPEED = 10
+
+[node name="door_plate_blocker" parent="." index="4" instance=ExtResource( 2 )]
+
+position = Vector2( 124.796, -374.747 )
+rotation = 1.5708
+SPEED = 5
+
+[node name="door_treasure" parent="." index="5" instance=ExtResource( 2 )]
+
+position = Vector2( 174.88, -1024.84 )
+SPEED = 5
+
+[node name="door_exit" parent="." index="6" instance=ExtResource( 2 )]
+
+position = Vector2( 24.9339, 125.166 )
+SPEED = 10
+
+[node name="card_red" parent="." index="7" instance=ExtResource( 3 )]
+
+position = Vector2( -334.363, 97.5225 )
+card_name = "red"
+card_color = "red"
+
+[node name="card_blue" parent="." index="8" instance=ExtResource( 3 )]
+
+position = Vector2( 92.213, -0.454346 )
+card_name = "blue"
+card_color = "blue"
+
+[node name="card_green" parent="." index="9" instance=ExtResource( 3 )]
+
+position = Vector2( 52.9255, -883.195 )
+card_name = "green"
+card_color = "green"
+
+[node name="Guard_left" parent="." index="10" instance=ExtResource( 4 )]
+
+position = Vector2( -508.667, -500.323 )
+patrol_path = [ Vector2( -560, -500 ), Vector2( -200, -500 ), Vector2( -200, -20 ), Vector2( -200, -500 ) ]
+
+[node name="Guard_longhall" parent="." index="11" instance=ExtResource( 4 )]
+
+position = Vector2( 350.084, -897.76 )
+patrol_path = [ Vector2( 350, -980 ), Vector2( 350, -200 ) ]
+
+[node name="Label" type="Label" parent="." index="12"]
+
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 13.0
+margin_top = 82.0
+margin_right = 57.0
+margin_bottom = 96.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Exit"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Label6" type="Label" parent="." index="13"]
+
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -132.0
+margin_top = -238.0
+margin_right = -88.0
+margin_bottom = -224.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Don't be seen!"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Label3" type="Label" parent="." index="14"]
+
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 19.0
+margin_top = -913.0
+margin_right = 78.0
+margin_bottom = -899.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Steal this"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Label7" type="Label" parent="." index="15"]
+
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 9.0
+margin_top = -869.0
+margin_right = 97.0
+margin_bottom = -855.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "before exiting"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Label2" type="Label" parent="." index="16"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 169.0
+margin_top = -146.0
+margin_right = 288.0
+margin_bottom = -132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Needs red keycard"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Label4" type="Label" parent="." index="17"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 465.0
+margin_top = -672.0
+margin_right = 680.0
+margin_bottom = -658.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Stand here and jump back in time"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Label8" type="Label" parent="." index="18"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -127.0
+margin_top = -681.0
+margin_right = 96.0
+margin_bottom = -650.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Use time travel to get through the
+north door while it's open."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Label5" type="Label" parent="." index="19"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 469.0
+margin_top = -655.0
+margin_right = 684.0
+margin_bottom = -641.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "so that the guard is behind you."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Material", "Visibility" ]
+
+[node name="Character" parent="." index="20" instance=ExtResource( 5 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="21"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="HUD" parent="CanvasLayer" index="0" instance=ExtResource( 6 )]
+
+

@@ -4,7 +4,7 @@ var speed = 3
 var state = 'active'
 var replay_index = null
 #Inventory may want to be a dictionary
-var inventory = []
+var inventory = ['default_access']
 var old_shape = null
 
 var event_list = []
@@ -89,9 +89,9 @@ func enable():
 
 func pickup(item):
 	inventory.append(item.card_name)
-	event_list.append({'type': "pickup", 'time:': global.time, 'position': position, 'item': item.card_name, 'rotation': rotation, 'velocity': Vector2(0,0)})
+	event_list.append({'type': "pickup", 'time': global.time, 'position': position, 'item': item.card_name, 'rotation': rotation, 'velocity': Vector2(0,0)})
 
-func reset_to_events(events):
+func reset_to_events(events, prevtime):
 	if state == 'active':
 		return
 	if events == null:

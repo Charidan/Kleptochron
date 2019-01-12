@@ -3,6 +3,7 @@ signal plate_on(signal_value)
 signal plate_off(signal_value)
 
 export(String) var plate_name
+export(bool) var held_plate = false
 var event_list = []
 
 var sprite_on
@@ -16,12 +17,18 @@ func _ready():
 	self.connect('plate_off', self, "set_off")
 	
 	self.connect("body_entered", self, "_on_pressureplate_body_entered", [self])
+	if held_plate:
+		self.connect("body_exited", self, "_on_pressureplate_body_exited", [self])
 	
 	# seed an initial event
 	var event_type_string = 'plate_on' if is_on() else 'plate_off'
 	event_list.append({'type': event_type_string, 'time': 0, 'state' : is_on()})
 
 func _on_pressureplate_body_entered(body, origin):
+	if body.get_filename() == global.CHARACTER_FILEPATH:
+		origin.toggle()
+
+func _on_pressureplate_body_exited(body, origin):
 	if body.get_filename() == global.CHARACTER_FILEPATH:
 		origin.toggle()
 

@@ -4,9 +4,11 @@ func _ready():
 	global.reset_time()
 	
 	var pp1 = find_node("Pressureplate")
+	var pp2 = find_node("Pressureplate2")
 	var door = find_node("door_treasure")
 	
 	connect_plate_to_door(pp1, door)
+	connect_plate_to_door(pp2, door)
 
 func connect_plate_to_door(plate, door):
 	plate.connect('plate_on', door, "open")

@@ -13,8 +13,8 @@ func _ready():
 	sprite_on = find_node("sprite_on")
 	sprite_off = find_node("sprite_off")
 	
-	self.connect('plate_on', self, "set_on")
-	self.connect('plate_off', self, "set_off")
+	#self.connect('plate_on', self, "set_on")
+	#self.connect('plate_off', self, "set_off")
 	
 	self.connect("body_entered", self, "_on_pressureplate_body_entered", [self])
 	if held_plate:
@@ -26,29 +26,34 @@ func _ready():
 
 func _on_pressureplate_body_entered(body, origin):
 	if body.get_filename() == global.CHARACTER_FILEPATH:
-		origin.toggle()
+		if not held_plate:
+			origin.toggle()
+		else:
+			origin.set_on()
 
 func _on_pressureplate_body_exited(body, origin):
 	if body.get_filename() == global.CHARACTER_FILEPATH:
-		origin.toggle()
+		origin.set_off()
 
 func toggle():
-	if sprite_on.is_visible():
-		emit_signal("plate_off")
-		print("plate_off")
+	if is_on():
+		set_off()
 	else:
-		emit_signal("plate_on")
-		print("plate_on")
+		set_on()
 
 func set_on():
 	event_list.append({'type': 'plate_on', 'time': global.time, 'state' : is_on()})
 	sprite_on.show()
 	sprite_off.hide()
+	emit_signal("plate_on")
+	print("plate_on")
 
 func set_off():
 	event_list.append({'type': 'plate_off', 'time': global.time, 'state' : is_on()})
 	sprite_on.hide()
 	sprite_off.show()
+	emit_signal("plate_off")
+	print("plate_off")
 	
 func is_on():
 	return sprite_on.is_visible()

@@ -3,6 +3,7 @@ extends Node
 const CHARACTER_FILEPATH = "res://scenes/Character.tscn"
 var Character = preload(CHARACTER_FILEPATH)
 var gg_dialog = preload("res://scenes/SpottedDialog.tscn")
+var win_dialog = preload("res://scenes/VictoryDialog.tscn")
 
 const UPP_DISTANCE = 600
 var time = UPP_DISTANCE
@@ -10,6 +11,10 @@ var furthest_present = UPP_DISTANCE
 var current_present = furthest_present
 var player = null
 var player_echo = null
+
+func _process(delta):
+   if Input.is_key_pressed(KEY_ESCAPE):
+      get_tree().quit()
 
 func reset():
 	player = null

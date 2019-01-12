@@ -9,8 +9,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 83.0
-margin_bottom = 58.0
+margin_right = 150.0
+margin_bottom = 92.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -18,12 +18,11 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 popup_exclusive = false
-window_title = "Game over!"
+window_title = "Victory!"
 resizable = false
-dialog_text = "You've been spotted!
+dialog_text = "Congratulations, you stole the green treasure!
 
-Press \"ok\" to restart.
-Press ESCAPE to quit."
+Press \"ok\" to restart. Press ESCAPE to quit."
 dialog_hide_on_ok = true
 script = ExtResource( 1 )
 _sections_unfolded = [ "Dialog", "Pause", "Popup", "Rect", "Visibility" ]

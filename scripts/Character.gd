@@ -43,6 +43,9 @@ func _physics_process(delta):
 		if replay_index >= len(event_list):
 			return
 		var event = event_list[replay_index]
+		if event_list[-1].type == 'depart':
+			if event_list[-1].time < global.time:
+				event = event_list[-1]
 		if event['type'] == 'pickup':
 			replay_index += 1
 			print(name)
@@ -90,6 +93,9 @@ func enable():
 func pickup(item):
 	inventory.append(item.card_name)
 	event_list.append({'type': "pickup", 'time': global.time, 'position': position, 'item': item.card_name, 'rotation': rotation, 'velocity': Vector2(0,0)})
+
+func make_anchor(anchor_time):
+	event_list.append({'type': "anchor", 'time': anchor_time, 'position': position, 'rotation': rotation, 'velocity': Vector2(0,0)})
 
 func reset_to_events(events, prevtime):
 	if state == 'active':

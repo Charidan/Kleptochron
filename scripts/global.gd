@@ -91,14 +91,18 @@ func time_travel(target_time, children):
 	time = target_time
 	print("TIME TRAVEL from " + str(prevtime) + " to " + str(time))
 	
+	var make_anchor = false
+	var clear_anchor = false
 	# if *returning* to the present
 	if time == current_present and prevtime != current_present:
 		if player_echo:
+			clear_anchor = true
 			children.erase(player_echo)
 			player_echo.free()
 			player_echo = null
 	else:
-		if not player_echo:			
+		if not player_echo:
+			make_anchor = true
 			# spawn echo player to travel to the past, add it to the node tree
 			player_echo = Character.instance()
 			player.get_parent().add_child(player_echo)
@@ -111,6 +115,11 @@ func time_travel(target_time, children):
 	
 	for child in children:
 		if 'event_list' in child:
+			if make_anchor and child.has_method('make_anchor'):
+				child.make_anchor(prevtime)
+			if clear_anchor:
+				if child.event_list[-1].type == 'anchor':
+					child.event_list.pop_back()
 			var events = self.find_adjacent_events(time, child.event_list)
 			child.reset_to_events(events, prevtime)
 

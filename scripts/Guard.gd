@@ -40,7 +40,7 @@ func _physics_process(delta):
 		position += velocity
 		#check if we reached the target
 		if (position - dest_point).length() < speed_patrol / 10.0:
-			event_list.append({'type':'patrol_point', 'time':global.time, 'state': 'patrol', 'position' : self.position, 'velocity' : velocity, 'rotation' : rotation})
+			event_list.append({'type':'patrol_point', 'time':global.time, 'state': self.state, 'position' : self.position, 'velocity' : velocity, 'rotation' : rotation})
 			dest_index += 1
 			if dest_index >= len(patrol_path):
 				dest_index = 0
@@ -64,6 +64,9 @@ func enable():
 	collision_mask = 1
 	collision_layer = 1
 	show()
+
+func make_anchor(anchor_time):
+	event_list.append({'type':'anchor', 'time': anchor_time, 'state': self.state, 'position' : self.position, 'velocity' : Vector2(0,0), 'rotation' : rotation})
 
 func reset_to_events(events, prevtime):
 	if events == null:
@@ -95,10 +98,11 @@ func reset_to_events(events, prevtime):
 	else:
 		late_pos = origin_pos
 		late_time = origin_time
-	var time_ratio = float(global.time - early_event['time']) / float(late_time - early_event['time'])
-	#print("time_ratio = " + str(time_ratio) + " num = " + str(global.time - early_event['time']) + " den " + str(late_event['time'] - early_event['time']))
-	position = Vector2(lerp(position.x, late_pos.x, time_ratio), lerp(position.y, late_pos.y, time_ratio))
-	#print(position)
+	if late_time != early_event['time']:
+		var time_ratio = float(global.time - early_event['time']) / float(late_time - early_event['time'])
+		#print("time_ratio = " + str(time_ratio) + " num = " + str(global.time - early_event['time']) + " den " + str(late_event['time'] - early_event['time']))
+		position = Vector2(lerp(position.x, late_pos.x, time_ratio), lerp(position.y, late_pos.y, time_ratio))
+		#print(position)
 
 func finalize_jump(t):
 	global.wipe_future(self, t)
